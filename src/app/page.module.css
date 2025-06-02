@@ -596,18 +596,25 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    gap: 10px;
+    margin-top: 2vh;
 }
 
 .ToDoItem {
     width: 80%;
+    max-width: 400px;
     background: white;
     text-align: center;
     color: black;
     font-family: var(--font-grotesk);
-    font-size: 3vw;
+    font-size: clamp(14px, 3vw, 20px);
     font-weight: 700;
     padding: 5px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1) inset;
+}
+
+.ToDoItem:hover {
+    box-shadow: none;
 }
 
 
