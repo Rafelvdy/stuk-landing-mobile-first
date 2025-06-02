@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openAccordionIndex, setOpenAccordionIndex] = useState(0);
-
+  const [isStorytellingExpanded, setIsStorytellingExpanded] = useState(false);
   return (
     <main>
       {/* Background */}
@@ -104,41 +104,84 @@ export default function Home() {
 
         <div className={styles.ActivitiesAccordionContainer}>
           <div className={styles.ActivitiesAccordion}>
-          <div className={styles.AccordionItem}>
-            <button
-              className={styles.AccordionHeader}
-              type="button"
-              aria-expanded={openAccordionIndex === 0}
-              aria-controls="pitch-content"
-              onClick={() => setOpenAccordionIndex(openAccordionIndex === 0 ? -1 : 0)}
-            >
-              <span className={styles.AccordionTitle}>Pitch Your Dream</span>
-            </button>
-            <div
-              id="pitch-content"
-              className={styles.AccordionContent}
-                aria-hidden={openAccordionIndex !== 0}
+            <div className={styles.AccordionItem}>
+              <button
+                className={styles.AccordionHeader}
+                type="button"
+                aria-expanded={openAccordionIndex === 0}
+                aria-controls="pitch-content"
+                onClick={() => setOpenAccordionIndex(openAccordionIndex === 0 ? -1 : 0)}
               >
-                <section className={styles.PitchSection}>
-                  <p className={styles.PitchSubtitle}>
-                    In collaboration with HelpBnk, step up to the iconic doorbell and pitch your startup idea. Short, raw, and direct.
-                  </p>
-                  <p className={styles.PitchDescription}>
-                    You&apos;re not just pitching into the void. Your moment could be seen by some of the biggest names in tech.<br/>
-                    Top pitches will get a shot at the <span className={styles.PitchHighlight}>$100,000 grant pool and accelerator.</span>
-                  </p>
-                  <div className={styles.ThingsToDoContainer}>
-                  <div className={styles.ToDoItem}>Find Collectables at Gallery</div>
-                    <div className={styles.ToDoItem}>Pass Quizes for Prizes</div>
-                    <div className={styles.ToDoItem}>Daily Content Challenge</div>
-                    <div className={styles.ToDoItem}>24hr Hackathon</div>
+                <span className={styles.AccordionTitle}>Pitch Your Dream</span>
+              </button>
+              <div
+                id="pitch-content"
+                className={styles.AccordionContent}
+                  aria-hidden={openAccordionIndex !== 0}
+                >
+                  <section className={styles.PitchSection}>
+                    <p className={styles.PitchSubtitle}>
+                      In collaboration with HelpBnk, step up to the iconic doorbell and pitch your startup idea. Short, raw, and direct.
+                    </p>
+                    <p className={styles.PitchDescription}>
+                      You&apos;re not just pitching into the void. Your moment could be seen by some of the biggest names in tech.<br/>
+                      Top pitches will get a shot at the <span className={styles.PitchHighlight}>$100,000 grant pool and accelerator.</span>
+                    </p>
+                    <div className={styles.PlaceholderRow}>
+                    {[1,2,3,4].map((i) => (
+                      <div className={styles.PlaceholderCard} key={i}>
+                        <div className={styles.PlaceholderImage}></div>
+                        <div className={styles.PlaceholderText}>
+                          <div className={styles.PlaceHolderItem}>Name</div>
+                          <div className={styles.PlaceHolderItem}>Company</div>
+                          <div className={styles.PlaceHolderItem}>Title</div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-              </section>
+                  </section>
+                </div>
+                <hr className={styles.AccordionSeparator} />
               </div>
-              <hr className={styles.AccordionSeparator} />
+              {/* Learn. Earn. Build. */}
+              <div className={styles.AccordionItem}>
+                <button
+                  className={styles.AccordionHeader}
+                  type="button"
+                  aria-expanded={openAccordionIndex === 1}
+                  aria-controls="learn-content"
+                  onClick={() => setOpenAccordionIndex(openAccordionIndex === 1 ? -1 : 1)}
+                >
+                  <span className={styles.AccordionTitle}>Learn. Earn. Build.</span>
+                </button>
+                <div
+                  id="learn-content"
+                  className={styles.AccordionContent}
+                  aria-hidden={openAccordionIndex !== 1}
+                >
+                  <div className={styles.ToDoContainer}>
+                    <div className={styles.ToDoItemContainer}>
+                      <div className={styles.ToDoItem}>Find Collectables at Gallery</div>
+                      <div className={styles.ToDoItem}>Pass Quizes for Prizes</div>
+                      <div className={styles.ToDoItem}>Daily Content Challenge</div>
+                      <div className={styles.ToDoItem}>24hr Hackathon</div>
+                    </div>
+                  
+                    <div className={styles.ToDoItemWide}>
+                      <h1>Every day, we&apos;re rewarding great storytelling...</h1>
+                      <h1 className={styles.ScrollDown}>V</h1>
+                      <div className={styles.ExpandedDescription + (isStorytellingExpanded ? ' expanded' : '')} style={{ maxHeight: isStorytellingExpanded ? 400 : 0 }}>
+                        <p>Post your experience at Startup Village, whether its a tweet, photo, thread, or video and earn up to $100 each day!</p>
+                        <p>Main Prizes to Top 3 posts, but everyone is able to claim <b>$1 in USDC per quality post</b> (up to 3 per day).</p>
+                        <p>Tag <b><a href="https://x.com/SuperteamUK" target="_blank" rel="noopener noreferrer">@SuperteamUK</a></b>,<b><a href="https://x.com/helpbnk" target="_blank" rel="noopener noreferrer"> @HelpBnk</a></b> and use <b>#LondonStartupVillage</b> to enter.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr className={styles.AccordionSeparator} />
+              </div>
             </div>
           </div>
-        </div>
 
       </div>
 
