@@ -16,8 +16,33 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openAccordionIndex, setOpenAccordionIndex] = useState(-1);
   const [isNavVisible, setIsNavVisible] = useState(true);
+  const [isLeftSwipeVisible, setIsLeftSwipeVisible] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
+  const [scrollPercentage, setScrollPercentage] = useState(0);
 
   useEffect(() => {
+
+    const checkIfAtBottom = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      const atBottom = scrollTop + windowHeight >= docHeight -5;
+      const percentage = Math.min((scrollTop / (docHeight - windowHeight)) * 100, 100);
+
+      setIsAtBottom(atBottom);
+      setScrollPercentage(percentage);
+    };
+
+    const handleLeftSwipeVisibility = (delta: number) => {
+      if (Math.abs(delta) < 10) return;
+
+      if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
+        setIsLeftSwipeVisible(true);
+      } else if (isLeftSwipeVisible && delta < 0) {
+        setIsLeftSwipeVisible(false);
+      }
+    }      
 
     const handleNavVisibility = (delta: number) => {
       if (Math.abs(delta) > 10) {
@@ -29,7 +54,6 @@ export default function Home() {
       }
     }
 
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const delta = currentScrollY - prevScrollY;
@@ -38,7 +62,10 @@ export default function Home() {
       setDeltaY(delta);
       setPrevScrollY(currentScrollY);
 
+      checkIfAtBottom();
+
       handleNavVisibility(delta);
+      handleLeftSwipeVisibility(delta);
     };
 
     const handleTouchStart = (e: TouchEvent) => {
@@ -57,11 +84,14 @@ export default function Home() {
       setInputType('touch');
 
       handleNavVisibility(touchDelta);
+      handleLeftSwipeVisibility(touchDelta);
     };
 
     const handleWheel = (e: WheelEvent) => {
       setDeltaY(e.deltaY);
       setInputType('wheel');
+
+      handleLeftSwipeVisibility(e.deltaY)
     };
 
     const handleMouseMove = () => {
@@ -76,6 +106,8 @@ export default function Home() {
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    checkIfAtBottom();
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -84,7 +116,7 @@ export default function Home() {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [prevScrollY, inputType]);
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible]);
   
 
 
@@ -102,6 +134,15 @@ export default function Home() {
         </div>
         <div className="text-blue-400 text-xs mt-1">
           Input: {inputType || 'none'}
+        </div>
+        <div className={`text-yellow-400 text-xs mt-1 ${isAtBottom ? 'font-bold' : ''}`}>
+          At Bottom: {isAtBottom ? 'YES' : 'NO'}
+        </div>
+        <div className={`text-purple-400 text-xs mt-1 ${isLeftSwipeVisible ? 'font-bold' : ''}`}>
+          Map Visible: {isLeftSwipeVisible ? 'YES' : 'NO'}
+        </div>
+        <div className="text-gray-400 text-xs mt-1">
+          Scroll %: {scrollPercentage.toFixed(1)}%
         </div>
       </div>
 
@@ -288,28 +329,40 @@ export default function Home() {
           </div>
         </div>
 
-      <div className={styles.BlurWrapper}>
-        {/* Themes*/}
-        <div className={styles.ThemesContainer}>
-          <div className={styles.ThemesTitle}>
-            <h1>Explore Each Day at Startup Village</h1>
+      <div className={styles.LeftSwipeContainer}>
+        <div className={styles.BlurWrapper}>
+          {/* Themes*/}
+          <div className={styles.ThemesContainer}
+          style={{
+            transform: isLeftSwipeVisible ? 'translateX(-100%)' : 'translateX(0)',
+            transition: 'transform 0.3s ease-in-out'
+          }}>
+            <div className={styles.ThemesTitle}>
+              <h1>Explore Each Day at Startup Village</h1>
+            </div>
+
+            <div className={styles.ThemesGraphic}></div>
+            <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
+            <div className={styles.ThemesXtraInfo}>
+              <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future-facing ideas.</p>
+              <p>Check back daily for new content, new talks, new opportunities.</p>
+            </div>
           </div>
 
-          <div className={styles.ThemesGraphic}></div>
-          <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
-          <div className={styles.ThemesXtraInfo}>
-            <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future-facing ideas.</p>
-            <p>Check back daily for new content, new talks, new opportunities.</p>
-          </div>
-        </div>
-
-        {/* map */}
-        <div className={styles.MapContainer}>
-          <div className={styles.MapContent}>
-            <div className={styles.MapGraphicTitle}>MAP</div>
-            <div className={styles.MapGraphic}></div>
-            <div className={styles.RegisterText}>Register To Startup Village</div>
-            <div className={styles.RegisterButtonWide}>Register</div>
+          {/* map */}
+          <div 
+            className={styles.MapContainer}
+            style={{
+              transform: isLeftSwipeVisible ? 'translateX(0)' : 'translateX(100%)',
+              transition: 'transform 0.3s ease-in-out'
+            }}
+          >
+            <div className={styles.MapContent}>
+              <div className={styles.MapGraphicTitle}>MAP</div>
+              <div className={styles.MapGraphic}></div>
+              <div className={styles.RegisterText}>Register To Startup Village</div>
+              <div className={styles.RegisterButtonWide}>Register</div>
+            </div>
           </div>
         </div>
       </div>
