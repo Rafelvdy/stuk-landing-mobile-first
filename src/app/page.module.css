@@ -297,7 +297,7 @@
 @media (max-width: 480px) {
     .BrandCarouselContainer {
         background: #905e7f;
-        height: 60px;
+        height: 12.5vw;
         width: 100%;
         white-space: nowrap;
     }
@@ -306,7 +306,7 @@
 @media (max-width: 768px) {
     .BrandCarouselContainer {
         background: #905e7f;
-        height: 60px;
+        height: 7.8vw;
         width: 100%;
         white-space: nowrap;
     }
@@ -315,7 +315,7 @@
 @media (max-width: 1024px) {
     .BrandCarouselContainer {
         background: #905e7f;
-        height: 60px;
+        height: 4.1vw;
         width: 100%;
         white-space: nowrap;
     }
@@ -347,6 +347,7 @@
     align-items: center;
     display: inline-flex;
     animation: slide 20s linear infinite;
+    
 }
 
 .BrandLogoContainer {
@@ -369,4 +370,192 @@
 
 .BrandCarouselContainer:hover .BrandCarouselSlide {
     animation-play-state: paused;
+}
+
+@media (min-width: 1439px) {
+    .BrandLogoContainer {
+        height: 3vw !important;
+    }
+}
+
+@media (min-width: 2560px) {
+    .BrandLogoContainer {
+        height: 2.2vw !important;
+    }
+}
+
+.ActivitiesTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ActivitiesTitle {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: white;
+}
+
+/* Activities Container */
+@media (max-width: 480px) {
+    .ActivitiesContainer {
+        background: #0e2433;
+        width: 100%;
+        height: 93vh;
+    }
+
+    .ActivitiesTitleContainer {
+        width: 100%;
+        height: 10vh;
+    }
+
+    .ActivitiesTitle {
+        font-size: 4.5vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .ActivitiesContainer {
+        background: #0e2433;
+        width: 100%;
+        height: 93vh;
+    }
+
+    .ActivitiesTitleContainer {
+        width: 100%;
+        height: 10vh;
+    }
+
+    .ActivitiesTitle {
+        font-size: 4.5vw;
+    }
+}
+
+@media (max-width: 1024px) {
+    .ActivitiesContainer {
+        background: #0e2433;
+        width: 100%;
+        height: 93vh;
+    }
+
+    .ActivitiesTitleContainer {
+        width: 100%;
+        height: 10vh;
+    }
+
+    .ActivitiesTitle {
+        font-size: 4.5vw;
+    }
+}
+
+@media (min-width: 1440px) {
+    .ActivitiesContainer {
+        background: #0e2433;
+        width: 100%;
+        height: 93vh;
+    }
+
+    .ActivitiesTitleContainer {
+        width: 100%;
+        height: 10vh;
+    }
+
+    .ActivitiesTitle {
+        font-size: 3vw;
+    }
+}
+
+@media (min-width: 2560px) {
+    .ActivitiesContainer {
+        background: #0e2433;
+        width: 100%;
+        height: 93vh;
+    }
+
+    .ActivitiesTitleContainer {
+        width: 100%;
+        height: 10vh;
+    }
+
+    .ActivitiesTitle {
+        font-size: 3vw;
+        margin-top: 10vh;
+    }
+}
+
+/* Accordion */
+.ActivitiesAccordionContainer {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    margin-top: 3vh;
+}
+
+.ActivitiesAccordion {
+    width: 80%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.AccordionItem {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.AccordionHeader {
+    width: 100%;
+}
+
+.AccordionHeader:focus, .AccordionHeader:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+.AccordionTitle {
+    font-family: var(--font-grotesk);
+    font-size: 5vw;
+    font-weight: 700;
+    color: var(--foreground);
+    letter-spacing: 0.01em;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.AccordionContent {
+    width: 100%;
+    padding: 0 0 28px 0;
+    display: block;
+    max-height: 2000px;
+    overflow: hidden;
+    transition:
+        max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transform: scale(1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    overflow-y: scroll;
+    height: 50%;
+}
+
+.AccordionContent[aria-hidden="true"] {
+    max-height: 0;
+    opacity: 0;
+    padding-bottom: 0;
+    transform: scale(0.98);
+}
+
+.AccordionSeparator {
+    border: none;
+    border-bottom: 1.5px solid #333;
+    margin-top: 10px;
+    width: 100%;
 }

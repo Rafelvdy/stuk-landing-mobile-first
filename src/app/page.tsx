@@ -8,6 +8,7 @@ import { useEffect, useState, useRef } from "react";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState(0);
 
   return (
     <main>
@@ -90,6 +91,46 @@ export default function Home() {
           <div className={styles.BrandLogoContainer}>
             <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
           </div> 
+        </div>
+
+        {/* Activities Container */}
+        <div className={styles.ActivitiesContainer}>
+          <div className={styles.ActivitiesTitleContainer}>
+              <h1 className={styles.ActivitiesTitle}>Things To Do at Startup Village</h1>
+          </div>
+
+          <div className={styles.ActivitiesAccordionContainer}>
+            <div className={styles.ActivitiesAccordion}>
+            <div className={styles.AccordionItem}>
+              <button
+                className={styles.AccordionHeader}
+                type="button"
+                aria-expanded={openAccordionIndex === 0}
+                aria-controls="pitch-content"
+                onClick={() => setOpenAccordionIndex(openAccordionIndex === 0 ? -1 : 0)}
+              >
+                <span className={styles.AccordionTitle}>Pitch Your Dream</span>
+              </button>
+              <div
+                id="pitch-content"
+                className={styles.AccordionContent}
+                  aria-hidden={openAccordionIndex !== 0}
+                >
+                  <section className={styles.PitchSection}>
+                  <p className={styles.PitchSubtitle}>
+                    In collaboration with HelpBnk, step up to the iconic doorbell and pitch your startup idea. Short, raw, and direct.
+                  </p>
+                  <p className={styles.PitchDescription}>
+                    You&apos;re not just pitching into the void. Your moment could be seen by some of the biggest names in tech.<br/>
+                    Top pitches will get a shot at the <span className={styles.PitchHighlight}>$100,000 grant pool and accelerator.</span>
+                  </p>
+                </section>
+                </div>
+                <hr className={styles.AccordionSeparator} />
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </main>
