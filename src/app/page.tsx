@@ -56,7 +56,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className={styles.HeroContainer}>
         <div className={styles.HeroTitleContainer}>
-          <Image src="/graphics/title-design.png" alt="Title Design" width={1200} height={1200} objectFit="contain" className={styles.HeroTitle} />
+          <Image rel="preload" src="/graphics/title-design.png" alt="Title Design" width={1200} height={1200} objectFit="contain" className={styles.HeroTitle} />
           <h1 className={styles.HeroSubtitle}>Your Gateway to The Future of Tech</h1>
         </div>
 
@@ -76,24 +76,24 @@ export default function Home() {
         <div className={styles.BrandCarouselContainer}>
           <div className={styles.BrandCarouselSlide}>
             <div className={styles.BrandLogoContainer}>
-              <Image src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
             </div> 
           </div>
           <div className={styles.BrandCarouselSlide}>
             <div className={styles.BrandLogoContainer}>
-              <Image src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
             </div> 
             </div>
           </div>
@@ -195,9 +195,9 @@ export default function Home() {
       <div className={styles.BlurWrapper}>
         {/* Themes*/}
         <div className={styles.ThemesContainer}>
-          <h1 className={styles.ThemesTitle}>
+          <div className={styles.ThemesTitle}>
             <h1>Explore Each Day at Startup Village</h1>
-          </h1>
+          </div>
 
           <div className={styles.ThemesGraphic}></div>
           <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
