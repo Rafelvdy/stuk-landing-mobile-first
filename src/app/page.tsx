@@ -3,20 +3,116 @@
 import LiquidBackground from "@/components/ui/LiquidBackground";
 import styles from "./page.module.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 
 export default function Home() {
+  const [scrollY, setScrollY] = useState(0);
+  const [deltaY, setDeltaY] = useState(0);
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [inputType, setInputType] = useState('');
+  const touchStartY = useRef(0);
+  const lastTouchY = useRef(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openAccordionIndex, setOpenAccordionIndex] = useState(-1);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+
+  useEffect(() => {
+
+    const handleNavVisibility = (delta: number) => {
+      if (Math.abs(delta) > 10) {
+        if (delta > 0) {
+          setIsNavVisible(false);
+        } else {
+          setIsNavVisible(true);
+        }
+      }
+    }
+
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - prevScrollY;
+      
+      setScrollY(currentScrollY);
+      setDeltaY(delta);
+      setPrevScrollY(currentScrollY);
+
+      handleNavVisibility(delta);
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY;
+      lastTouchY.current = e.touches[0].clientY;
+      setInputType('touch');
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const currentTouchY = e.touches[0].clientY;
+      const touchDelta = lastTouchY.current - currentTouchY;
+      lastTouchY.current = currentTouchY;
+      
+      // Update delta based on touch movement
+      setDeltaY(touchDelta);
+      setInputType('touch');
+
+      handleNavVisibility(touchDelta);
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      setDeltaY(e.deltaY);
+      setInputType('wheel');
+    };
+
+    const handleMouseMove = () => {
+      if (inputType !== 'touch') {
+        setInputType('mouse');
+      }
+    };
+
+    // Add all event listeners
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [prevScrollY, inputType]);
+  
+
 
   return (
     <main>
       {/* Background */}
       <LiquidBackground />
 
+         {/* Fixed display panel */}
+         <div className="fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
+        <div>Scroll Y: {scrollY}px</div>
+        <div>Delta Y: {deltaY.toFixed(1)}px</div>
+        <div className={`${deltaY > 0 ? 'text-red-400' : deltaY < 0 ? 'text-green-400' : 'text-gray-400'}`}>
+          Direction: {deltaY > 0 ? '↓ Down' : deltaY < 0 ? '↑ Up' : '— Static'}
+        </div>
+        <div className="text-blue-400 text-xs mt-1">
+          Input: {inputType || 'none'}
+        </div>
+      </div>
+
       {/* Navbar */}
-      <div className={styles.NavBar}>
+      <div 
+        className={styles.NavBar}
+        style={{
+          transform: isNavVisible ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.3s ease-in-out'
+        }}
+      >
         <div className={styles.NavBarLeft}>
           <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" width={300} height={300} objectFit="contain" className={styles.NavBarLogo}/>
         </div>
