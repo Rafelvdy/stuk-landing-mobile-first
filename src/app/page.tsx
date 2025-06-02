@@ -73,51 +73,55 @@ export default function Home() {
       {/* Activities Container */}
       <div className={styles.ActivitiesContainer}>
         {/* Brand Carousel */}
-      <div className={styles.BrandCarouselContainer}>
-        <div className={styles.BrandCarouselSlide}>
-          <div className={styles.BrandLogoContainer}>
-            <Image src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
+        <div className={styles.BrandCarouselContainer}>
+          <div className={styles.BrandCarouselSlide}>
+            <div className={styles.BrandLogoContainer}>
+              <Image src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>
+            <div className={styles.BrandLogoContainer}>
+              <Image src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>
+            <div className={styles.BrandLogoContainer}>
+              <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+            </div> 
           </div>
-          <div className={styles.BrandLogoContainer}>
-            <Image src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
+          <div className={styles.BrandCarouselSlide}>
+            <div className={styles.BrandLogoContainer}>
+              <Image src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>
+            <div className={styles.BrandLogoContainer}>
+              <Image src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>
+            <div className={styles.BrandLogoContainer}>
+              <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+            </div> 
+            </div>
           </div>
-          <div className={styles.BrandLogoContainer}>
-            <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
-          </div> 
-        </div>
-        <div className={styles.BrandCarouselSlide}>
-          <div className={styles.BrandLogoContainer}>
-            <Image src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
-          </div>
-          <div className={styles.BrandLogoContainer}>
-            <Image src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
-          </div>
-          <div className={styles.BrandLogoContainer}>
-            <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
-          </div> 
-          </div>
-        </div>
 
-        <div className={styles.ActivitiesTitleContainer}>
-            <h1 className={styles.ActivitiesTitle}>Things To Do at Startup Village</h1>
-        </div>
+          <div className={styles.ActivitiesTitleContainer}>
+              <h1 className={styles.ActivitiesTitle}>Things To Do at Startup Village</h1>
+          </div>
 
-        <div className={styles.ActivitiesAccordionContainer}>
-          <div className={styles.ActivitiesAccordion}>
-            <div className={styles.AccordionItem}>
-              <button
-                className={styles.AccordionHeader}
-                type="button"
-                aria-expanded={openAccordionIndex === 0}
-                aria-controls="pitch-content"
-                onClick={() => setOpenAccordionIndex(openAccordionIndex === 0 ? -1 : 0)}
-              >
-                <span className={styles.AccordionTitle}>Pitch Your Dream</span>
-              </button>
-              <div
-                id="pitch-content"
-                className={styles.AccordionContent}
+          <div className={styles.ActivitiesAccordionContainer}>
+            <div className={styles.ActivitiesAccordion}>
+              <div className={styles.AccordionItem}>
+                <button
+                  className={styles.AccordionHeader}
+                  type="button"
+                  aria-expanded={openAccordionIndex === 0}
+                  aria-controls="pitch-content"
+                  onClick={() => setOpenAccordionIndex(openAccordionIndex === 0 ? -1 : 0)}
+                >
+                  <span className={styles.AccordionTitle}>Pitch Your Dream</span>
+                </button>
+                <div
+                  id="pitch-content"
+                  className={styles.AccordionContent}
                   aria-hidden={openAccordionIndex !== 0}
+                  style={{ 
+                    maxHeight: openAccordionIndex === 0 ? '2000px' : '0px',
+                    visibility: openAccordionIndex === 0 ? 'visible' : 'hidden'
+                  }}
                 >
                   <section className={styles.PitchSection}>
                     <p className={styles.PitchSubtitle}>
@@ -158,6 +162,10 @@ export default function Home() {
                   id="learn-content"
                   className={styles.AccordionContent}
                   aria-hidden={openAccordionIndex !== 1}
+                  style={{ 
+                    maxHeight: openAccordionIndex === 1 ? '2000px' : '0px',
+                    visibility: openAccordionIndex === 1 ? 'visible' : 'hidden'
+                  }}
                 >
                   <div className={styles.ThingsToDoContainer}>
                     <div className={styles.ToDoItemContainer}>
@@ -182,13 +190,23 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-      </div>
+        </div>
 
       {/* Themes*/}
       <div className={styles.ThemesContainer}>
-        <h1 className={styles.ThemesTitle}>Themes</h1>
+        <h1 className={styles.ThemesTitle}>
+          <h1>Explore Each Day at Startup Village</h1>
+        </h1>
+
+        <div className={styles.ThemesGraphic}></div>
+        <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
+          <div className={styles.ThemesXtraInfo}>
+            <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future-facing ideas.</p>
+            <p>Check back daily for new content, new talks, new opportunities.</p>
+          </div>
       </div>
+
+     
     </main>
   );
 }

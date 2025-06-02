@@ -401,7 +401,10 @@
 .ActivitiesContainer {
     background: #0e2433;
     width: 100%;
-    height: 111vh;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
 }
 
 /* Activities Container */
@@ -467,19 +470,23 @@
     align-items: start;
     justify-content: center;
     margin-top: 3vh;
+    overflow: visible;
 }
 
 .ActivitiesAccordion {
     width: 95%;
-    height: 100px;
     display: flex;
     flex-direction: column;
+    min-height: 100px;
+    height: auto;
 }
 
 .AccordionItem {
     width: 100%;
     display: flex;
     flex-direction: column;
+    height: auto;
+    overflow: visible;
 }
 
 .AccordionHeader {
@@ -504,26 +511,27 @@
 .AccordionContent {
     width: 100%;
     padding: 0 0 28px 0;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: auto;
     overflow: hidden;
     transition:
         max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
         opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.1s linear;
     opacity: 1;
     transform: scale(1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;   
-    height: auto;
 }
 
 .AccordionContent[aria-hidden="true"] {
-    max-height: 0;
+    max-height: 0 !important;
     opacity: 0;
-    padding-bottom: 0;
+    padding: 0;
     transform: scale(0.98);
+    visibility: hidden;
 }
 
 .AccordionSeparator {
@@ -743,4 +751,51 @@
     backdrop-filter: blur(10px);
     width: 100%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
+.ThemesTitle {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: clamp(14px, 4vw, 25px);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: white;
+}
+
+.ThemesGraphic {
+    background: grey;
+    aspect-ratio: 16/9;
+    height: auto;
+    width: 80%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.ThemesGraphicSubtitle {
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-align: center;
+}
+
+.ThemesXtraInfo p {
+    font-family: var(--font-inter);
+    font-size: clamp(20px, 3.5w, 20px);
+    color: var(--foreground);
+    line-height: 1.5;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    /* backdrop-filter: blur(10px); */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 1vw;
+    min-height: 4.68vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
