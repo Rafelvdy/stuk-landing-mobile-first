@@ -330,6 +330,10 @@ export default function Home() {
         </div>
 
       <div className={styles.LeftSwipeContainer}>
+        <div className={styles.SwipeDownContainer}>
+          <div className={styles.SwipeDownText}>Swipe Down</div>
+          <Image src="/icons/down-arrow.png" alt="Swipe Down" width={64} height={64} className={styles.SwipeDownIcon} />
+        </div>
         <div className={styles.BlurWrapper}>
           {/* Themes*/}
           <div className={styles.ThemesContainer}
