@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openAccordionIndex, setOpenAccordionIndex] = useState(0);
-  const [isStorytellingExpanded, setIsStorytellingExpanded] = useState(false);
+
   return (
     <main>
       {/* Background */}
@@ -159,18 +159,18 @@ export default function Home() {
                   className={styles.AccordionContent}
                   aria-hidden={openAccordionIndex !== 1}
                 >
-                  <div className={styles.ToDoContainer}>
+                  <div className={styles.ThingsToDoContainer}>
                     <div className={styles.ToDoItemContainer}>
                       <div className={styles.ToDoItem}>Find Collectables at Gallery</div>
                       <div className={styles.ToDoItem}>Pass Quizes for Prizes</div>
                       <div className={styles.ToDoItem}>Daily Content Challenge</div>
                       <div className={styles.ToDoItem}>24hr Hackathon</div>
                     </div>
-                  
+                    
                     <div className={styles.ToDoItemWide}>
                       <h1>Every day, we&apos;re rewarding great storytelling...</h1>
                       <h1 className={styles.ScrollDown}>V</h1>
-                      <div className={styles.ExpandedDescription + (isStorytellingExpanded ? ' expanded' : '')} style={{ maxHeight: isStorytellingExpanded ? 400 : 0 }}>
+                      <div className={styles.ExpandedDescription}>
                         <p>Post your experience at Startup Village, whether its a tweet, photo, thread, or video and earn up to $100 each day!</p>
                         <p>Main Prizes to Top 3 posts, but everyone is able to claim <b>$1 in USDC per quality post</b> (up to 3 per day).</p>
                         <p>Tag <b><a href="https://x.com/SuperteamUK" target="_blank" rel="noopener noreferrer">@SuperteamUK</a></b>,<b><a href="https://x.com/helpbnk" target="_blank" rel="noopener noreferrer"> @HelpBnk</a></b> and use <b>#LondonStartupVillage</b> to enter.</p>
