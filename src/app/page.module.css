@@ -404,7 +404,10 @@
     display: flex;
     flex-direction: column;
     height: auto;
+    padding-bottom: 50px;
     overflow: visible;
+    border-radius: 0 0 30px 30px;
+    backdrop-filter: blur(10px);
 }
 
 /* Activities Container */
@@ -746,16 +749,125 @@
 }
 
 /* Themes */
+@media (min-width: 0px) and (max-width: 425px) {
+    .ThemesXtraInfo p {
+        font-size: 13px !important;
+        padding: 2vw !important;
+        max-height: 110px !important;
+    }
+
+    
+}
+
+
+@media (min-width: 425px) and (max-width: 1024px) {
+    .ThemesContainer {
+
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    
+    .ThemesTitle {
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+        font-size: clamp(14px, 4vw, 25px);
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        color: white;
+        margin-top: 10vh;
+    }
+    
+    .ThemesGraphic {
+        background: grey;
+        aspect-ratio: 16/9;
+        height: auto;
+        width: 80%;
+        max-width: 1000px;
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+    
+    .ThemesGraphicSubtitle {
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-align: center;
+        margin-bottom: 4vh;
+    }
+    
+    .ThemesXtraInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .ThemesXtraInfo p {
+        font-family: var(--font-inter);
+        font-size: clamp(20px, 3.5w, 20px);
+        color: var(--foreground);
+        line-height: 1.5;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        /* backdrop-filter: blur(10px); */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        padding: 3vw !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3vh !important;
+        max-width: 95%;
+        max-height: 110px !important;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+   .ThemesXtraInfo {
+    margin-bottom: 10px !important;
+   }
+
+}
+
+@media (min-width: 1440px) and (max-width: 2560px) {
+    .ThemesGraphic {
+        margin-top: 20px;
+    }
+
+    
+}
+
+@media (min-width: 2560px) {
+    .ThemesXtraInfo p {
+        max-height: 60px;
+        margin-top: 2vh;
+        padding: 1.3vw;
+    }
+
+    .ThemesGraphicSubtitle {
+        margin-bottom: 1vh;
+    }
+
+    
+}
+
 .ThemesContainer {
-    background: rgba(255,255,255,0.01);
-    backdrop-filter: blur(10px);
+    /* background: rgba(255,255,255,0.01);
+    backdrop-filter: blur(10px); */
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 4vh;
+    border: none;
+    
+    
 }
 
 .ThemesTitle {
@@ -765,6 +877,7 @@
     font-weight: 700;
     letter-spacing: 0.01em;
     color: white;
+    margin-top: 10vh;
 }
 
 .ThemesGraphic {
@@ -772,6 +885,7 @@
     aspect-ratio: 16/9;
     height: auto;
     width: 80%;
+    max-width: 1000px;
     margin-top: 50px;
     margin-bottom: 20px;
 }
@@ -780,7 +894,7 @@
     font-weight: 700;
     letter-spacing: 0.01em;
     text-align: center;
-    margin-bottom: 4vh;
+    margin-bottom: 2vh;
 }
 
 .ThemesXtraInfo {
@@ -789,6 +903,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 10px !important;
 }
 
 .ThemesXtraInfo p {
@@ -801,12 +916,115 @@
     /* backdrop-filter: blur(10px); */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 999px;
-    padding: 2vw;
+    padding: 1vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 3vh;
+    margin-top: 1vh;
     max-width: 95%;
+    max-height: 60px;
 }
 
+.MapContainer {
+    /* background:rgba(255,255,255,0.01);
+    backdrop-filter: blur(10px); */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
 
+.BlurWrapper {
+    background: rgba(255,255,255,0.01);
+    backdrop-filter: blur(10px);
+}
+
+.MapGraphic {
+    background: grey;
+    aspect-ratio: 16/9;
+    height: auto;
+    width: 80%;
+    max-width: 1000px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.MapGraphicTitle {
+    font-family: var(--font-mono);
+    font-size: 9vw;
+    letter-spacing: 0.05em;
+}
+
+.RegisterText {
+    font-family: var(--font-inter);
+    font-weight: 700;
+    font-size: 5vw;
+    margin-top: 2vh;
+}
+
+.RegisterButtonWide {
+    background: rgba(106, 105, 195, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: var(--font-grotesk);
+    width: 46.875vw;
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.RegisterButtonWide:hover {
+    background: rgba(106, 105, 195, 0.5);
+}
+
+.MapContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .MapGraphicTitle {
+        font-size: clamp(14px, 5vw, 50px);
+    }
+
+    .MapContent {
+        margin-top: 10vh;
+    }
+
+    .MapContainer {
+        height: 105vh;
+    }
+
+    .RegisterText {
+        font-size: clamp(14px, 5vw, 40px);
+        margin-top: 1vh;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 2560px) {
+    .MapGraphicTitle {
+        font-size: clamp(14px, 5vw, 50px);
+    }
+
+    .MapContent {
+        margin-top: 10vh;
+    }
+
+    .MapGraphic {
+        margin-top: 20px;
+    }
+
+    .RegisterText {
+        font-size: clamp(14px, 5vw, 40px);
+    }
+}

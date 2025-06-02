@@ -192,21 +192,31 @@ export default function Home() {
           </div>
         </div>
 
-      {/* Themes*/}
-      <div className={styles.ThemesContainer}>
-        <h1 className={styles.ThemesTitle}>
-          <h1>Explore Each Day at Startup Village</h1>
-        </h1>
+      <div className={styles.BlurWrapper}>
+        {/* Themes*/}
+        <div className={styles.ThemesContainer}>
+          <h1 className={styles.ThemesTitle}>
+            <h1>Explore Each Day at Startup Village</h1>
+          </h1>
 
-        <div className={styles.ThemesGraphic}></div>
-        <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
-        <div className={styles.ThemesXtraInfo}>
-          <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future-facing ideas.</p>
-          <p>Check back daily for new content, new talks, new opportunities.</p>
+          <div className={styles.ThemesGraphic}></div>
+          <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
+          <div className={styles.ThemesXtraInfo}>
+            <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future-facing ideas.</p>
+            <p>Check back daily for new content, new talks, new opportunities.</p>
+          </div>
+        </div>
+
+        {/* map */}
+        <div className={styles.MapContainer}>
+          <div className={styles.MapContent}>
+            <div className={styles.MapGraphicTitle}>MAP</div>
+            <div className={styles.MapGraphic}></div>
+            <div className={styles.RegisterText}>Register To Startup Village</div>
+            <div className={styles.RegisterButtonWide}>Register</div>
+          </div>
         </div>
       </div>
-
-     
     </main>
   );
 }
