@@ -488,7 +488,6 @@
 /* Accordion */
 .ActivitiesAccordionContainer {
     width: 100%;
-    height: 30%;
     display: flex;
     align-items: start;
     justify-content: center;
@@ -530,7 +529,6 @@
     width: 100%;
     padding: 0 0 28px 0;
     display: block;
-    max-height: 2000px;
     overflow: hidden;
     transition:
         max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
@@ -541,9 +539,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
-    overflow-y: scroll;
-    height: 50%;
+    justify-content: start;   
+    height: auto;
 }
 
 .AccordionContent[aria-hidden="true"] {
@@ -558,4 +555,56 @@
     border-bottom: 1.5px solid #333;
     margin-top: 10px;
     width: 100%;
+}
+
+@media (min-width: 1440px) {
+    .AccordionTitle {
+        font-size: 4vw;
+    }
+
+    .ActivitiesAccordionContainer {
+        margin-top: 10vh;
+    }
+}
+
+@media (min-width: 2560px) {
+    .AccordionTitle {
+        font-size: 3vw;
+    }
+
+    .ActivitiesAccordionContainer {
+        margin-top: 15vh;
+    }
+}
+
+.PitchSection {
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    text-align: left;
+
+}
+
+.PitchSubtitle {
+    font-family: var(--font-sans);
+    font-size: 3vw;
+    color: #999;
+    margin: 0 0 2px 0;
+}
+
+.PitchDescription {
+    font-family: var(--font-sans);
+    font-size: 1.08rem;
+    color: white;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.PitchHighlight {
+    font-weight: 700;
+    color: #3F84E5;
 }

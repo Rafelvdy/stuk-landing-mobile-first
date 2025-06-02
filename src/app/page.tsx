@@ -117,13 +117,13 @@ export default function Home() {
                   aria-hidden={openAccordionIndex !== 0}
                 >
                   <section className={styles.PitchSection}>
-                  <p className={styles.PitchSubtitle}>
-                    In collaboration with HelpBnk, step up to the iconic doorbell and pitch your startup idea. Short, raw, and direct.
-                  </p>
-                  <p className={styles.PitchDescription}>
-                    You&apos;re not just pitching into the void. Your moment could be seen by some of the biggest names in tech.<br/>
-                    Top pitches will get a shot at the <span className={styles.PitchHighlight}>$100,000 grant pool and accelerator.</span>
-                  </p>
+                    <p className={styles.PitchSubtitle}>
+                      In collaboration with HelpBnk, step up to the iconic doorbell and pitch your startup idea. Short, raw, and direct.
+                    </p>
+                    <p className={styles.PitchDescription}>
+                      You&apos;re not just pitching into the void. Your moment could be seen by some of the biggest names in tech.<br/>
+                      Top pitches will get a shot at the <span className={styles.PitchHighlight}>$100,000 grant pool and accelerator.</span>
+                    </p>
                 </section>
                 </div>
                 <hr className={styles.AccordionSeparator} />
