@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [openAccordionIndex, setOpenAccordionIndex] = useState(0);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState(-1);
 
   return (
     <main>
