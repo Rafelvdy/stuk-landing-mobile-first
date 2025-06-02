@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clean Slate Next.js Project
+
+This project has been stripped of all default Next.js content. Start building your landing page here.
 
 ## Getting Started
 

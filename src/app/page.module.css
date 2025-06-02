@@ -1,0 +1,372 @@
+.NavBar {
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+}
+
+.NavBarLeft {
+    height: 100%;
+    width: 20%;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.NavBarLogo {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    max-width: 200px;
+    min-width: 120px;
+    margin-left: 45px;
+}
+
+.NavBarMiddle {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NavLinks {
+    min-width: 300px;
+    border-radius: 999px;
+    height: 60%;
+    border: 1px solid #ffffff1a;
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: var(--font-grotesk);
+    font-size: clamp(12px, 1.2vw, 16px);
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+}
+
+.NavLinks p {
+    cursor: pointer;
+    color: var(--foreground);
+    transition: color 0.3s ease, scale 0.1s ease;
+}
+
+.NavLinks p:hover {
+    color: var(--foreground-dim);
+    scale: 0.95;
+}
+
+.NavBarRight {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MobileMenu {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.MenuButtonContainer {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.MenuButtonContainer span {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.MenuButtonContainer.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.MenuButtonContainer.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.MenuButtonContainer.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+.MobileMenuDropdown {
+    position: absolute;
+    top: 60px;
+    right: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    width: 200px;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px solid #ffffff1a;
+}
+
+.MobileMenuDropdown.open {
+    height: 280px;
+    border-width: 1px;
+}
+
+.MobileMenuLinks {
+    padding: 20px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.MobileMenuLinks p {
+    color: white;
+    font-family: var(--font-grotesk);
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.MobileMenuLinks p:hover {
+    opacity: 1;
+}
+
+.MobileMenuButton {
+    margin-top: 20px;
+    font-family: var(--font-grotesk);
+    font-weight: 600;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    color: white;
+    border-radius: 999px;
+    height: 40px;
+    width: 120px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .NavBarMiddle {
+        display: none;
+    }
+
+    .NavBarRight {
+        display: none;
+    }
+
+    .MobileMenu {
+        display: block;
+    }
+
+    .NavBar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .NavBarLeft {
+        width: auto;
+        flex-grow: 0;
+    }
+
+    .NavBarLogo {
+        margin-left: 0;
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .NavBarLogo {
+        width: 100px;
+    }
+}
+
+.RegisterButton {
+    font-family: var(--font-grotesk);
+    font-weight: 600;
+    font-size: clamp(12px, 1.3vw, 18px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    color: var(--foreground);
+    border-radius: 999px;
+    height: 50px;
+    width: clamp(100px, 10vw, 150px);
+    border: none;
+    border: 1px solid #ffffff1a
+}
+
+.HeroContainer {
+    width: 100%;
+    height: 87vh;
+}
+
+.HeroTitleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 13vh;
+}
+
+.HeroTitle {
+    object-fit: contain;
+    width: 80%;
+    max-width: 600px;
+}
+
+.HeroSubtitle {
+    font-family: var(--font-grotesk);
+    font-weight: 600;
+    color: white;
+    font-size: clamp(20px, 4vw, 40px);
+}
+
+@media (max-width: 1024px) {
+    .HeroSubtitle {
+        font-size: 3vw;
+    }
+}
+
+.HeroVideoContainer {
+    width: 100;
+    height: 40vh;
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .HeroVideoContainer {
+        margin-top: 20vh;
+    }
+}
+
+.HeroVideo {
+    background: grey;
+    aspect-ratio: 16/9;
+    width: 90%;
+    max-width: 900px;
+}
+
+.VideoSubText {
+    font-family: var(--font-grotesk);
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    margin-top: 2vh;
+    font-size: clamp(16px, 3.5vw, 25px);
+    letter-spacing: 0.05em;
+    width: 80%;
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+    .VideoSubText {
+        font-size: 1.5vw;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 480px) {
+    .VideoSubText {
+        font-size: 2vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .BrandCarouselContainer {
+        background: #905e7f;
+        height: 60px;
+        width: 100%;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .BrandCarouselContainer {
+        background: #905e7f;
+        height: 60px;
+        width: 100%;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 1024px) {
+    .BrandCarouselContainer {
+        background: #905e7f;
+        height: 60px;
+        width: 100%;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 1440px) { 
+    .BrandCarouselContainer {
+        background: #905e7f;
+        height: 60px;
+        width: 100%;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 2560px) { 
+    .BrandCarouselContainer {
+        background: #905e7f;
+        height: 60px;
+        width: 100%;
+        white-space: nowrap;
+    }
+}
+
+.BrandCarouselSlide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    display: inline-flex;
+    animation: slide 20s linear infinite;
+}
+
+.BrandLogoContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    height: 5.2vw;
+    margin: 0 auto;
+}
+
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.BrandCarouselContainer:hover .BrandCarouselSlide {
+    animation-play-state: paused;
+}
