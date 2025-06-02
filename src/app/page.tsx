@@ -127,12 +127,19 @@ export default function Home() {
                     You&apos;re not just pitching into the void. Your moment could be seen by some of the biggest names in tech.<br/>
                     Top pitches will get a shot at the <span className={styles.PitchHighlight}>$100,000 grant pool and accelerator.</span>
                   </p>
+                  <div className={styles.ThingsToDoContainer}>
+                  <div className={styles.ToDoItem}>Find Collectables at Gallery</div>
+                    <div className={styles.ToDoItem}>Pass Quizes for Prizes</div>
+                    <div className={styles.ToDoItem}>Daily Content Challenge</div>
+                    <div className={styles.ToDoItem}>24hr Hackathon</div>
+                  </div>
               </section>
               </div>
               <hr className={styles.AccordionSeparator} />
             </div>
           </div>
         </div>
+
       </div>
 
       {/* Themes*/}
