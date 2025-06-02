@@ -3,7 +3,7 @@
 import LiquidBackground from "@/components/ui/LiquidBackground";
 import styles from "./page.module.css";
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 
 
 export default function Home() {
