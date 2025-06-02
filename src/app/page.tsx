@@ -200,10 +200,10 @@ export default function Home() {
 
         <div className={styles.ThemesGraphic}></div>
         <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
-          <div className={styles.ThemesXtraInfo}>
-            <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future-facing ideas.</p>
-            <p>Check back daily for new content, new talks, new opportunities.</p>
-          </div>
+        <div className={styles.ThemesXtraInfo}>
+          <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future-facing ideas.</p>
+          <p>Check back daily for new content, new talks, new opportunities.</p>
+        </div>
       </div>
 
      
