@@ -450,7 +450,11 @@ export default function Home() {
             height: isCommunityVisible ? '100vh' : '0vh',
             transition: 'all 0.3s ease-in-out'
           }}
-        ></div>
+        >
+          <div className={styles.CommunityContent}>
+            <div className={styles.CommunityTitle}>What's Next? Join Your Local Community on Telegram</div>
+          </div>
+        </div>
       </div>
     </main>
   );
