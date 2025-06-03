@@ -505,13 +505,24 @@ export default function Home() {
               <div className={styles.SolanaLink}>
                 <button className={styles.SolanaButton}>Solana UK</button>
               </div>
-              <div className={styles.SectorLinks}></div>
+              <div className={styles.SectorLinks}>
+                <div className={styles.CreatorButton}>CREATOR</div>
+                <div className={styles.CreatorButton}>ENGINEER</div>
+                <div className={styles.CreatorButton}>BUSINESS</div>
+              </div>
               <div className={styles.LocationLinks}>
                 <div className={styles.ManButton} data-full="MANCHESTER" >MAN</div>
                 <div className={styles.BirButton} data-full="BIRMINGHAM">BIR</div>
                 <div className={styles.NewButton} data-full="NEWCASTLE">NEW</div>
                 <div className={styles.ExeButton} data-full="EXETER">EXE</div>
                 <div className={styles.BriButton} data-full="BRIGHTON">BRI</div>
+              </div>
+              <div className={styles.EventInfoContainer}>
+                <div className={styles.EventInfoTitle}>Did you know we have weekly events every friday in 7 cities?</div>
+                <div className={styles.EventInfoButtonContainer}>
+                  <div className={styles.EventInfoButtonText}>Find all our events on</div>
+                  <div className={styles.EventInfoButton}>Find them here</div>
+                </div>
               </div>
             </div>
           </div>
