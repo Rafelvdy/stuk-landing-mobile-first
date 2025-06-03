@@ -19,6 +19,10 @@ export default function Home() {
   const [isLeftSwipeVisible, setIsLeftSwipeVisible] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
   const [scrollPercentage, setScrollPercentage] = useState(0);
+  const [touchSwipeDirection, setTouchSwipeDirection] = useState(0);
+  const [touchSwipeCount, setTouchSwipeCount] = useState(0);
+  const touchSwipeTimeout = useRef<NodeJS.Timeout | null>(null);
+  const isProcessingSwipe = useRef(false);
 
   useEffect(() => {
 
@@ -34,17 +38,47 @@ export default function Home() {
       setScrollPercentage(percentage);
     };
 
-    const handleLeftSwipeVisibility = (delta: number) => {
+    const handleLeftSwipeVisibility = (delta: number, inputType: string) => {
       if (Math.abs(delta) < 10) return;
 
-      if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
-        setIsLeftSwipeVisible(true);
-      } else if (isLeftSwipeVisible && delta < 0) {
-        setIsLeftSwipeVisible(false);
+      if (inputType === 'wheel') {
+        if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
+          setIsLeftSwipeVisible(true);
+        } else if (isLeftSwipeVisible && delta < 0) {
+          setIsLeftSwipeVisible(false);
+        } 
+      } else if (inputType === 'touch') {
+        if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
+          // Only trigger if we've had consistent downward swipes
+          if (touchSwipeDirection > 0) {
+            setTouchSwipeCount(prev => prev + 1);
+            if (touchSwipeCount >= 2) { // Require at least 2 consistent swipes
+              setIsLeftSwipeVisible(true);
+              setTouchSwipeCount(0);
+            }
+          } else {
+            setTouchSwipeDirection(1);
+            setTouchSwipeCount(1);
+          }
+        } else if (isLeftSwipeVisible && delta < 0) {
+          if (touchSwipeDirection < 0 || touchSwipeCount === 0) {
+            setIsLeftSwipeVisible(false);
+            setTouchSwipeDirection(0);
+            setTouchSwipeCount(0);
+          }
+        }
+
+        if (touchSwipeTimeout.current) {
+          clearTimeout(touchSwipeTimeout.current);
+        }
+        touchSwipeTimeout.current = setTimeout(() => {
+          setTouchSwipeDirection(0);
+          setTouchSwipeCount(0);
+        }, 500);
       }
     }      
 
-    const handleNavVisibility = (delta: number) => {
+    const handleNavVisibility = (delta: number) => {6
       if (Math.abs(delta) > 10) {
         if (delta > 0) {
           setIsNavVisible(false);
@@ -64,8 +98,10 @@ export default function Home() {
 
       checkIfAtBottom();
 
-      handleNavVisibility(delta);
-      handleLeftSwipeVisibility(delta);
+      if (inputType !== 'touch') {
+        handleNavVisibility(delta);
+        handleLeftSwipeVisibility(delta, 'wheel');
+      }
     };
 
     const handleTouchStart = (e: TouchEvent) => {
@@ -75,23 +111,42 @@ export default function Home() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (isProcessingSwipe.current) return;
+
       const currentTouchY = e.touches[0].clientY;
       const touchDelta = lastTouchY.current - currentTouchY;
       lastTouchY.current = currentTouchY;
-      
+
+      if (Math.abs(touchDelta) < 5) return;
+
       // Update delta based on touch movement
       setDeltaY(touchDelta);
       setInputType('touch');
 
       handleNavVisibility(touchDelta);
-      handleLeftSwipeVisibility(touchDelta);
     };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isProcessingSwipe.current) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const totalDelta = touchStartY.current - touchEndY;
+
+      if (Math.abs(totalDelta) > 30) {
+        isProcessingSwipe.current = true;
+        handleLeftSwipeVisibility(totalDelta, 'touch');
+
+        setTimeout(() => {
+          isProcessingSwipe.current = false;
+        }, 300);
+      }
+    }
 
     const handleWheel = (e: WheelEvent) => {
       setDeltaY(e.deltaY);
       setInputType('wheel');
 
-      handleLeftSwipeVisibility(e.deltaY)
+      handleLeftSwipeVisibility(e.deltaY, 'wheel')
     };
 
     const handleMouseMove = () => {
@@ -104,6 +159,7 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
@@ -113,10 +169,17 @@ export default function Home() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('mousemove', handleMouseMove);
+
+      if (touchSwipeTimeout.current) {
+        clearTimeout(touchSwipeTimeout.current);
+      }
     };
-  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible]);
+
+    
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, touchSwipeDirection, touchSwipeCount]);
   
 
 
@@ -126,7 +189,7 @@ export default function Home() {
       <LiquidBackground />
 
          {/* Fixed display panel */}
-         <div className="fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
+         <div className="hidden fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
         <div>Scroll Y: {scrollY}px</div>
         <div>Delta Y: {deltaY.toFixed(1)}px</div>
         <div className={`${deltaY > 0 ? 'text-red-400' : deltaY < 0 ? 'text-green-400' : 'text-gray-400'}`}>
