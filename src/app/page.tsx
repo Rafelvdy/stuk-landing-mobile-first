@@ -56,9 +56,9 @@ export default function Home() {
 
     // Different logic for wheel vs touch
     if (inputType === 'wheel') {
-      if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
+      if (isAtBottom && delta > 0 && !isLeftSwipeVisible ) {
         setIsLeftSwipeVisible(true);
-      } else if (isLeftSwipeVisible && delta < 0) {
+      } else if (isLeftSwipeVisible && delta < 0 && !isCommunityVisible) {
         setIsLeftSwipeVisible(false);
       }
       
@@ -72,10 +72,9 @@ export default function Home() {
     } else if (inputType === 'touch') {
       if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
         setIsLeftSwipeVisible(true);
-      } else if (isLeftSwipeVisible && delta < 0) {
+      } else if (isLeftSwipeVisible && delta < 0 && !isCommunityVisible) {
         setIsLeftSwipeVisible(false);
       }
-      const swipeContainer = document.querySelector('.SwipeDownContainer') as HTMLElement;
       if (isLeftSwipeVisible && delta > 0) {
         setIsCommunityVisible(true);
         setIsSwipeDownVisible(false);
@@ -200,7 +199,7 @@ export default function Home() {
         clearTimeout(scrollTimeout.current);
       }
     };
-  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility]);
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility, isCommunityVisible, isSwipeDownVisible]);
 
   return (
     <main>
