@@ -1644,7 +1644,51 @@
 }
 
 .LocationLinks {
-    background: purple;
+   
     height: 20%;
+    width: 105%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.LocationLinks div {
+    background: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 3.5vw;
+    letter-spacing: 0.05em;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.LocationLinks div::after {
+    content: attr(data-full);
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: black;
+}
+
+.LocationLinks div:hover {
+    background: white;
+    color: black;
+}
+
+@media screen and (min-width: 768px) {
+    .LocationLinks div::after {
+        display: inline;
+    }
+
+    .LocationLinks div {
+        background: transparent;
+        position: relative;
+    }
 }
