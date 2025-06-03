@@ -584,6 +584,7 @@
     color: #999;
     margin: 0 0 2px 0;
     width: 80%;
+    text-align: center;
 }
 
 .PitchDescription {
@@ -596,6 +597,24 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
     max-width: 80%;
+}
+@media (min-width: 1024px) {
+    .PitchSubtitle {
+        margin-top: 2vh;
+    }
+}
+
+@media (min-width: 1440px) {
+    .PitchDescription {
+        margin-right: 5vw;
+    }
+}
+
+@media (min-width: 2560px) {
+    .PitchSection {
+        align-items: center;
+        text-align: center;
+    }
 }
 
 .PitchHighlight {
