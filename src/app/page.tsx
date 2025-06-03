@@ -14,7 +14,7 @@ export default function Home() {
   const touchStartY = useRef(0);
   const lastTouchY = useRef(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [openAccordionIndex, setOpenAccordionIndex] = useState(-1);
+  const [activeToDoItem, setActiveToDoItem] = useState<number | null>(null);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [isLeftSwipeVisible, setIsLeftSwipeVisible] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
@@ -316,22 +316,16 @@ export default function Home() {
         <div className={styles.ActivitiesAccordionContainer}>
           <div className={styles.ActivitiesAccordion}>
             <div className={styles.AccordionItem}>
-              <button
-                className={styles.AccordionHeader}
-                type="button"
-                aria-expanded={openAccordionIndex === 0}
-                aria-controls="pitch-content"
-                onClick={() => setOpenAccordionIndex(openAccordionIndex === 0 ? -1 : 0)}
-              >
+              <div className={styles.AccordionHeader}>
                 <span className={styles.AccordionTitle}>Pitch Your Dream</span>
-              </button>
+              </div>
               <div
                 id="pitch-content"
                 className={styles.AccordionContent}
-                aria-hidden={openAccordionIndex !== 0}
+                aria-hidden="false"
                 style={{ 
-                  maxHeight: openAccordionIndex === 0 ? '2000px' : '0px',
-                  visibility: openAccordionIndex === 0 ? 'visible' : 'hidden'
+                  maxHeight: '2000px',
+                  visibility: 'visible'
                 }}
               >
                 <section className={styles.PitchSection}>
@@ -360,49 +354,87 @@ export default function Home() {
             </div>
             {/* Learn. Earn. Build. */}
             <div className={styles.AccordionItem}>
-              <button
-                className={styles.AccordionHeader}
-                type="button"
-                aria-expanded={openAccordionIndex === 1}
-                aria-controls="learn-content"
-                onClick={() => setOpenAccordionIndex(openAccordionIndex === 1 ? -1 : 1)}
-              >
+              <div className={styles.AccordionHeader}>
                 <span className={styles.AccordionTitle}>Learn. Earn. Build.</span>
-              </button>
+              </div>
               <div
                 id="learn-content"
                 className={styles.AccordionContent}
-                aria-hidden={openAccordionIndex !== 1}
+                aria-hidden="false"
                 style={{ 
-                  maxHeight: openAccordionIndex === 1 ? '2000px' : '0px',
-                  visibility: openAccordionIndex === 1 ? 'visible' : 'hidden'
+                  maxHeight: '2000px',
+                  visibility: 'visible'
                 }}
               >
                 <div className={styles.ThingsToDoContainer}>
                   <div className={styles.ToDoItemContainer}>
-                    <div className={styles.ToDoItem}>Find Collectables at Gallery
-                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    <div 
+                      className={`${styles.ToDoItem} ${activeToDoItem === 0 ? styles.active : ''}`}
+                      onClick={() => setActiveToDoItem(activeToDoItem === 0 ? null : 0)}
+                    >
+                      Find Collectables at Gallery
+                      <div className={styles.DropDownIcon}>
+                        <Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} />
+                      </div>
                     </div>
-                    <div className={styles.ToDoItem}>Pass Quizes for Prizes
-                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    <div 
+                      className={`${styles.ToDoItem} ${activeToDoItem === 1 ? styles.active : ''}`}
+                      onClick={() => setActiveToDoItem(activeToDoItem === 1 ? null : 1)}
+                    >
+                      Pass Quizes for Prizes
+                      <div className={styles.DropDownIcon}>
+                        <Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} />
+                      </div>
                     </div>
-                    <div className={styles.ToDoItem}>Daily Content Challenge
-                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    <div 
+                      className={`${styles.ToDoItem} ${activeToDoItem === 2 ? styles.active : ''}`}
+                      onClick={() => setActiveToDoItem(activeToDoItem === 2 ? null : 2)}
+                    >
+                      Daily Content Challenge
+                      <div className={styles.DropDownIcon}>
+                        <Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} />
+                      </div>
                     </div>
-                    <div className={styles.ToDoItem}>24hr Hackathon
-                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    <div 
+                      className={`${styles.ToDoItem} ${activeToDoItem === 3 ? styles.active : ''}`}
+                      onClick={() => setActiveToDoItem(activeToDoItem === 3 ? null : 3)}
+                    >
+                      24hr Hackathon
+                      <div className={styles.DropDownIcon}>
+                        <Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} />
+                      </div>
                     </div>
                   </div>
                   
-                  <div className={styles.ToDoItemWide}>
-                    <h1>Every day, we&apos;re rewarding great storytelling...</h1>
-                    <h1 className={styles.ScrollDown}>V</h1>
-                    <div className={styles.ExpandedDescription}>
+                  {activeToDoItem === 0 && (
+                    <div className={styles.ExpandedToDoItem}>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                  )}
+                  
+                  {activeToDoItem === 1 && (
+                    <div className={styles.ExpandedToDoItem}>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                  )}
+                  
+                  {activeToDoItem === 2 && (
+                    <div className={styles.ExpandedToDoItem}>
+                      <h1>Every day, we&apos;re rewarding great storytelling...</h1>
                       <p>Post your experience at Startup Village, whether its a tweet, photo, thread, or video and earn up to $100 each day!</p>
                       <p>Main Prizes to Top 3 posts, but everyone is able to claim <b>$1 in USDC per quality post</b> (up to 3 per day).</p>
                       <p>Tag <b><a href="https://x.com/SuperteamUK" target="_blank" rel="noopener noreferrer">@SuperteamUK</a></b>,<b><a href="https://x.com/helpbnk" target="_blank" rel="noopener noreferrer"> @HelpBnk</a></b> and use <b>#LondonStartupVillage</b> to enter.</p>
                     </div>
-                  </div>
+                  )}
+                  
+                  {activeToDoItem === 3 && (
+                    <div className={styles.ExpandedToDoItem}>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <hr className={styles.AccordionSeparator} />
