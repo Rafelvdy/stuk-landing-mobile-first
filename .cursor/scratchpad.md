@@ -4,10 +4,14 @@
   - Success criteria: Can import and use a CSS module in a component, and styles are applied as expected.
 - [x] Implement responsive design improvements for the Themes section
   - Success criteria: All screen sizes display content appropriately with proper spacing and proportions
+- [x] Implement Community Container animations and content visibility
+  - Success criteria: Content is hidden when container is collapsed and appears with smooth animations when expanded
 
 ## Background and Motivation
 
 The current responsive design implementation for the Themes section needs improvement. While the 768px layout has a good design style, as screen sizes get larger, the box sizes and spacing need better control. We need to revise the CSS to ensure content remains visually balanced across all screen sizes while maintaining the graphic placeholder as the main focal point.
+
+Additionally, the Community Container needs proper visibility handling to ensure its content is hidden when the container is collapsed and appears with smooth animations when expanded.
 
 ## Key Challenges and Analysis
 
@@ -107,6 +111,12 @@ Implemented specific improvements for each screen size category:
   - Added visual elements (dots, borders) to maintain hierarchy
   - Constrained container widths to prevent excessive spacing on large screens
   - Ensured the graphic remains the focal point across all screen sizes
+- Implemented improved Community Container behavior:
+  - Added proper opacity and transform transitions to hide content when container is collapsed
+  - Created staggered animations for the content elements to appear with a nice flow
+  - Added blur wrapper for consistent styling with other sections
+  - Enhanced the content with description text and a call-to-action button
+  - Ensured all elements properly animate in and out based on container visibility
 
 ## Lessons
 - To use normal CSS with Tailwind in Next.js, use CSS modules for component-scoped styles and import them as objects (e.g., `import styles from './Component.module.css'`).
@@ -114,4 +124,9 @@ Implemented specific improvements for each screen size category:
 - For responsive design, use a reference design (like the 768px layout) and adapt it to different screen sizes with appropriate constraints.
 - On larger screens, simpler styling often looks better than boxed elements.
 - Use grid layouts for better control over content placement at different screen sizes.
-- Visual elements like dots and borders can help maintain hierarchy without using boxes. 
+- Visual elements like dots and borders can help maintain hierarchy without using boxes.
+- For smooth animations when showing/hiding content:
+  - Use a combination of opacity, transform, and size transitions
+  - Apply staggered delays to create a nice flow of elements appearing
+  - Use attribute selectors to conditionally style elements based on their state
+  - Set overflow to hidden to prevent content from appearing outside its container 

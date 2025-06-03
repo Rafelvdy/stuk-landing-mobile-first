@@ -452,7 +452,16 @@ export default function Home() {
           }}
         >
           <div className={styles.CommunityContent}>
-            <div className={styles.CommunityTitle}>What&apos;s Next? Join Your Local Community on Telegram</div>
+            <div className={styles.CommunityTitleContainer}>
+              <div className={styles.CommunityTitle}>What&apos;s Next? <b>Join Your Local Community on Telegram</b></div>
+            </div>
+            <div className={styles.LinksContainer}>
+              <div className={styles.SolanaLink}>
+                <button className={styles.SolanaButton}>Solana UK</button>
+              </div>
+              <div className={styles.SectorLinks}></div>
+              <div className={styles.LocationLinks}></div>
+            </div>
           </div>
         </div>
       </div>
