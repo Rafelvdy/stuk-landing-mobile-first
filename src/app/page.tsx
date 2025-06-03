@@ -58,12 +58,12 @@ export default function Home() {
     };      
 
     const handleNavVisibility = (delta: number) => {
+      if (isMenuOpen) {
+        setIsMenuOpen(false);
+      }
       if (Math.abs(delta) > 10) {
         if (delta > 0) {
           setIsNavVisible(false);
-          if (isMenuOpen) {
-            setIsMenuOpen(false);
-          }
         } else {
           setIsNavVisible(true);
         }
