@@ -136,6 +136,10 @@ export default function Home() {
         e.preventDefault();
       }
 
+      if (touchDelta < 30 && isCommunityVisible) {
+        e.preventDefault();
+      }
+
 
       // Update delta based on touch movement
       setDeltaY(touchDelta);
@@ -155,6 +159,10 @@ export default function Home() {
       }
 
       if (isLeftSwipeVisible && totalDelta < 30 && !isCommunityVisible) {
+        e.preventDefault();
+      }
+
+      if (totalDelta < 30 && isCommunityVisible) {
         e.preventDefault();
       }
 
