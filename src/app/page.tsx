@@ -61,6 +61,9 @@ export default function Home() {
       if (Math.abs(delta) > 10) {
         if (delta > 0) {
           setIsNavVisible(false);
+          if (isMenuOpen) {
+            setIsMenuOpen(false);
+          }
         } else {
           setIsNavVisible(true);
         }
@@ -104,6 +107,7 @@ export default function Home() {
       setInputType('touch');
 
       handleNavVisibility(touchDelta);
+    
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
