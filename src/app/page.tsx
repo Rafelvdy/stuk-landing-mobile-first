@@ -113,7 +113,7 @@ export default function Home() {
       const touchEndY = e.changedTouches[0].clientY;
       const totalDelta = touchStartY.current - touchEndY;
 
-      if (Math.abs(totalDelta) > 30 && isMenuOpen) {
+      if (Math.abs(totalDelta) > 10 && isMenuOpen) {
         setIsMenuOpen(false);
       }
 
