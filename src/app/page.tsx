@@ -505,6 +505,13 @@ export default function Home() {
           }}
         >
           <div className={styles.CommunityContent}>
+          <div className={styles.EventInfoContainer}>
+                <div className={styles.EventInfoTitle}>Did you know we have weekly events every friday in 7 cities?</div>
+                <div className={styles.EventInfoButtonContainer}>
+                  <div className={styles.EventInfoButtonText}>Find all our events on</div>
+                  <div className={styles.EventInfoButton}>Find them here</div>
+                </div>
+              </div>
             <div className={styles.CommunityTitleContainer}>
               <div className={styles.CommunityTitle}>What&apos;s Next? <b>Join Your Local Community on Telegram</b></div>
             </div>
@@ -524,13 +531,7 @@ export default function Home() {
                 <div className={styles.ExeButton} data-full="EXETER">EXE</div>
                 <div className={styles.BriButton} data-full="BRIGHTON">BRI</div>
               </div>
-              <div className={styles.EventInfoContainer}>
-                <div className={styles.EventInfoTitle}>Did you know we have weekly events every friday in 7 cities?</div>
-                <div className={styles.EventInfoButtonContainer}>
-                  <div className={styles.EventInfoButtonText}>Find all our events on</div>
-                  <div className={styles.EventInfoButton}>Find them here</div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>

@@ -1714,11 +1714,12 @@
 
 .EventInfoContainer {
     position: absolute;
-    height: 100px;
-    width: 300px;
-    top: -50%;
-    left: 60%;
-    transform: translate(-50%, -50%);
+    height: 120px;
+    width: 100%;
+    background: #061017;
+    top: 0%;
+    left: 0%;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1729,6 +1730,9 @@
     font-family: var(--font-mono);
     font-size: 3vw;
     color: white;
+    text-align: center;
+    padding: 10px 10px;
+    
 }
 
 .EventInfoButtonContainer {
@@ -1737,6 +1741,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 10px;
+    padding-bottom: 10px;
 }
 
 .EventInfoButtonText {
