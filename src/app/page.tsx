@@ -224,7 +224,7 @@ export default function Home() {
         }}
       >
         <div className={styles.NavBarLeft}>
-          <Image src="/logo/stuk-hlpbk-logo.png" alt="Logo" width={300} height={300} objectFit="contain" className={styles.NavBarLogo}/>
+          <a href="/"><Image src="/carousel-photos/LSV lander/Logos - Header.png" alt="Logo" width={300} height={300} objectFit="contain" className={styles.NavBarLogo}/></a>
         </div>
         <div className={styles.NavBarMiddle}>
           <div className={styles.NavLinks}>
@@ -280,25 +280,31 @@ export default function Home() {
         <div className={styles.BrandCarouselContainer}>
           <div className={styles.BrandCarouselSlide}>
             <div className={styles.BrandLogoContainer}>
-              <Image rel="preload" src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/carousel-photos/LSV lander/chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image rel="preload" src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/carousel-photos/LSV lander/Group 66.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image rel="preload" src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
-            </div> 
+              <Image rel="preload" src="/carousel-photos/LSV lander/Helpbank.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>
+            <div className={styles.BrandLogoContainer}>
+              <Image rel="preload" src="/carousel-photos/LSV lander/Solana.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>  
           </div>
           <div className={styles.BrandCarouselSlide}>
-            <div className={styles.BrandLogoContainer}>
-              <Image rel="preload" src="/carousel-photos/gemini-chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
+          <div className={styles.BrandLogoContainer}>
+              <Image rel="preload" src="/carousel-photos/LSV lander/chainlink.png" alt="Gemini Chainlink" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image rel="preload" src="/carousel-photos/Solana.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
+              <Image rel="preload" src="/carousel-photos/LSV lander/Group 66.png" alt="Solana" fill objectFit="contain" className={styles.BrandLogo} />
             </div>
             <div className={styles.BrandLogoContainer}>
-              <Image rel="preload" src="/logo/stuk-hlpbk-logo.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
-            </div> 
+              <Image rel="preload" src="/carousel-photos/LSV lander/Helpbank.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>
+            <div className={styles.BrandLogoContainer}>
+              <Image rel="preload" src="/carousel-photos/LSV lander/Solana.png" alt="Logo" fill objectFit="contain" className={styles.BrandLogo} />
+            </div>
           </div>
         </div>
 
