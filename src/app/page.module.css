@@ -234,7 +234,7 @@
 
 .HeroTitle {
     object-fit: contain;
-    width: 76vh;
+    width: 80%;
     max-width: 600px;
 }
 
