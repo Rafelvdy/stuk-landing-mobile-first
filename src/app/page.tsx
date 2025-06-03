@@ -418,15 +418,17 @@ export default function Home() {
               <h1>Explore Each Day at Startup Village</h1>
             </div>
 
-            <div className={styles.ThemesGraphic}></div>
-            <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
-            <div className={styles.ThemesXtraInfo}>
-              <div className={styles.ThemesXtraInfoTextList}>
-                <p>- Dive into our interactive digital gallery</p>
-                <p>- Test your knowledge with a daily quiz</p>
-                <p>- Catch two expert speakers sharing real insights and future-facing ideas.</p>
+            <div className={styles.ThemesContent}>
+              <div className={styles.ThemesGraphic}></div>
+              <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
+              <div className={styles.ThemesXtraInfo}>
+                <div className={styles.ThemesXtraInfoTextList}>
+                  <p>- Dive into our interactive digital gallery</p>
+                  <p>- Test your knowledge with a daily quiz</p>
+                  <p>- Catch two expert speakers sharing real insights and future-facing ideas.</p>
+                </div>
+                <p className={styles.ThemesXtraInfoText}>Check back daily for new content, new talks, new opportunities.</p>
               </div>
-              <p className={styles.ThemesXtraInfoText}>Check back daily for new content, new talks, new opportunities.</p>
             </div>
           </div>
 
