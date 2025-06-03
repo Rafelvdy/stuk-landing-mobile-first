@@ -124,6 +124,9 @@ export default function Home() {
 
       if (Math.abs(touchDelta) < 5) return;
 
+      if (isAtBottom && touchDelta > 0) {
+        e.preventDefault();
+      }
       // Update delta based on touch movement
       setDeltaY(touchDelta);
       setInputType('touch');
@@ -136,6 +139,10 @@ export default function Home() {
 
       const touchEndY = e.changedTouches[0].clientY;
       const totalDelta = touchStartY.current - touchEndY;
+
+      if (isAtBottom && totalDelta > 30) {
+        e.preventDefault();
+      }
 
       if (Math.abs(totalDelta) > 30) {
         isProcessingSwipe.current = true;
@@ -165,8 +172,8 @@ export default function Home() {
     // Add all event listeners with proper options
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd, { passive: false });
     window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
