@@ -58,9 +58,6 @@ export default function Home() {
     };      
 
     const handleNavVisibility = (delta: number) => {
-      if (isMenuOpen) {
-        setIsMenuOpen(false);
-      }
       if (Math.abs(delta) > 10) {
         if (delta > 0) {
           setIsNavVisible(false);
@@ -116,9 +113,15 @@ export default function Home() {
       const touchEndY = e.changedTouches[0].clientY;
       const totalDelta = touchStartY.current - touchEndY;
 
+      if (Math.abs(totalDelta) > 30 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+
       if (Math.abs(totalDelta) > 30) {
         isProcessingSwipe.current = true;
         handleLeftSwipeVisibility(totalDelta, 'touch');
+
+        handleNavVisibility(totalDelta);
 
         setTimeout(() => {
           isProcessingSwipe.current = false;
