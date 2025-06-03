@@ -452,7 +452,7 @@ export default function Home() {
           }}
         >
           <div className={styles.CommunityContent}>
-            <div className={styles.CommunityTitle}>What's Next? Join Your Local Community on Telegram</div>
+            <div className={styles.CommunityTitle}>What&apos;s Next? Join Your Local Community on Telegram</div>
           </div>
         </div>
       </div>
