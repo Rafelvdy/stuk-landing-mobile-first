@@ -131,6 +131,12 @@ export default function Home() {
       if (isAtBottom && touchDelta > 0) {
         e.preventDefault();
       }
+
+      if (isLeftSwipeVisible && touchDelta < 30 && !isCommunityVisible) {
+        e.preventDefault();
+      }
+
+
       // Update delta based on touch movement
       setDeltaY(touchDelta);
       setInputType('touch');
@@ -145,6 +151,10 @@ export default function Home() {
       const totalDelta = touchStartY.current - touchEndY;
 
       if (isAtBottom && totalDelta > 30) {
+        e.preventDefault();
+      }
+
+      if (isLeftSwipeVisible && totalDelta < 30 && !isCommunityVisible) {
         e.preventDefault();
       }
 
