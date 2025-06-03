@@ -202,9 +202,9 @@ export default function Home() {
         </div>
         <div className={styles.NavBarMiddle}>
           <div className={styles.NavLinks}>
-            <p>About</p>
-            <p>Activities</p>
-            <p>Themes</p>
+            <a href="#about"><p>About</p></a>
+            <a href="#activities"><p>Activities</p></a>
+            <a href="#themes"><p>Themes</p></a>
             <p>Community</p>
           </div>
         </div>
@@ -223,9 +223,9 @@ export default function Home() {
           </div>
           <div className={`${styles.MobileMenuDropdown} ${isMenuOpen ? styles.open : ''}`}>
             <div className={styles.MobileMenuLinks}>
-              <p>About</p>
-              <p>Activities</p>
-              <p>Themes</p>
+              <a href="#about"><p>About</p></a>
+              <a href="#activities"><p>Activities</p></a>
+              <a href="#themes"><p>Themes</p></a>
               <p>Community</p>
             </div>
             <button className={styles.MobileMenuButton}>Register</button>
@@ -234,7 +234,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <div className={styles.HeroContainer}>
+      <div className={styles.HeroContainer} id="about">
         <div className={styles.HeroTitleContainer}>
           <Image rel="preload" src="/graphics/title-design.png" alt="Title Design" width={1200} height={1200} objectFit="contain" className={styles.HeroTitle} />
           <h1 className={styles.HeroSubtitle}>Your Gateway to The Future of Tech</h1>
@@ -251,7 +251,7 @@ export default function Home() {
       
 
       {/* Activities Container */}
-      <div className={styles.ActivitiesContainer}>
+      <div className={styles.ActivitiesContainer} id="activities">
         {/* Brand Carousel */}
         <div className={styles.BrandCarouselContainer}>
           <div className={styles.BrandCarouselSlide}>
@@ -379,7 +379,7 @@ export default function Home() {
         </div>
         <div className={styles.BlurWrapper}>
           {/* Themes*/}
-          <div className={styles.ThemesContainer}
+          <div className={styles.ThemesContainer} id="themes"
           style={{
             transform: isLeftSwipeVisible ? 'translateX(-100%)' : 'translateX(0)',
             transition: 'transform 0.3s ease-in-out'
