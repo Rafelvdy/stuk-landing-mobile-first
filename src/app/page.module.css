@@ -696,6 +696,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    transition: scale 0.3s ease;
 }
 
 .ToDoItem:hover {
@@ -703,6 +704,7 @@
         scale: 1.1;
         animation: wiggle 1s ease-in-out;
     }
+    scale: 1.1;
 }
 
 @keyframes wiggle {
@@ -734,6 +736,16 @@
     transition: scale 0.3s ease, rotate 0.3s ease;
 }
 
+@media (min-width: 0px) and (max-width: 1890px) {
+    .ToDoItemContainer {
+        flex-direction: column;
+    }
+
+    .ToDoItem {
+        width: 75vw;
+        margin-bottom: 2vh;
+    }
+}
 
 
 .ToDoItemWide {
