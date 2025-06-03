@@ -675,28 +675,66 @@
 
 .ToDoItemContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    gap: 10px;
+    margin-top: 2vh;
 }
 
 .ToDoItem {
-    width: 80%;
-    max-width: 400px;
+    width: 400px;    
     background: white;
-    text-align: center;
+    text-align: left;
     color: black;
     font-family: var(--font-grotesk);
     font-size: clamp(14px, 3vw, 20px);
     font-weight: 400;
-    padding: 5px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1) inset;
+    padding: .5vw 2vw;
+    border-radius: 999px;
+    margin-right: 2vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .ToDoItem:hover {
-    box-shadow: none;
+    .DropDownIcon {
+        scale: 1.1;
+        animation: wiggle 1s ease-in-out;
+    }
 }
+
+@keyframes wiggle {
+    0% {
+        rotate: -90deg;
+    }
+    25% {
+        rotate: -75deg;
+    }
+    50% {
+        rotate: -105deg;
+    }
+    75% {
+        rotate: -75deg;
+    }
+    100% {
+        rotate: -90deg;
+    }
+}
+
+.DropDownIcon {
+    background: #0e2433;
+    border-radius: 999px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    rotate: -90deg;
+    transition: scale 0.3s ease, rotate 0.3s ease;
+}
+
+
 
 .ToDoItemWide {
     display: flex;

@@ -380,10 +380,18 @@ export default function Home() {
               >
                 <div className={styles.ThingsToDoContainer}>
                   <div className={styles.ToDoItemContainer}>
-                    <div className={styles.ToDoItem}>Find Collectables at Gallery</div>
-                    <div className={styles.ToDoItem}>Pass Quizes for Prizes</div>
-                    <div className={styles.ToDoItem}>Daily Content Challenge</div>
-                    <div className={styles.ToDoItem}>24hr Hackathon</div>
+                    <div className={styles.ToDoItem}>Find Collectables at Gallery
+                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    </div>
+                    <div className={styles.ToDoItem}>Pass Quizes for Prizes
+                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    </div>
+                    <div className={styles.ToDoItem}>Daily Content Challenge
+                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    </div>
+                    <div className={styles.ToDoItem}>24hr Hackathon
+                      <div className={styles.DropDownIcon}><Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} /></div>
+                    </div>
                   </div>
                   
                   <div className={styles.ToDoItemWide}>
