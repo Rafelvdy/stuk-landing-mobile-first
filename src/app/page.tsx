@@ -78,7 +78,7 @@ export default function Home() {
       }
     }      
 
-    const handleNavVisibility = (delta: number) => {6
+    const handleNavVisibility = (delta: number) => {
       if (Math.abs(delta) > 10) {
         if (delta > 0) {
           setIsNavVisible(false);
