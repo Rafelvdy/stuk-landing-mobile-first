@@ -260,6 +260,11 @@ export default function Home() {
         </div>
       </div>
 
+      <div className={styles.SwipeDownContainer}>
+          <div className={styles.SwipeDownText}>Swipe Down</div>
+          <Image src="/icons/down-arrow.png" alt="Swipe Down" width={64} height={64} className={styles.SwipeDownIcon} />
+        </div>
+
       {/* Hero Section */}
       <div className={styles.HeroContainer} id="about">
         <div className={styles.HeroTitleContainer}>
@@ -444,10 +449,6 @@ export default function Home() {
       </div>
 
       <div className={styles.LeftSwipeContainer}>
-        <div className={styles.SwipeDownContainer}>
-          <div className={styles.SwipeDownText}>Swipe Down</div>
-          <Image src="/icons/down-arrow.png" alt="Swipe Down" width={64} height={64} className={styles.SwipeDownIcon} />
-        </div>
         <div className={styles.BlurWrapper}>
           {/* Themes*/}
           <div className={styles.ThemesContainer} id="themes"
@@ -464,9 +465,7 @@ export default function Home() {
               <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
               <div className={styles.ThemesXtraInfo}>
                 <div className={styles.ThemesXtraInfoTextList}>
-                  <p>- Dive into our interactive digital gallery</p>
-                  <p>- Test your knowledge with a daily quiz</p>
-                  <p>- Catch two expert speakers sharing real insights and future-facing ideas.</p>
+                  <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future facing ideas.</p>
                 </div>
                 <p className={styles.ThemesXtraInfoText}>Check back daily for new content, new talks, new opportunities.</p>
               </div>
