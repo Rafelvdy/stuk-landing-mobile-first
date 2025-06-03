@@ -24,6 +24,10 @@ export default function Home() {
 
   useEffect(() => {
 
+    if (!isNavVisible && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+
     const checkIfAtBottom = () => {
       const scrollTop = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -113,10 +117,6 @@ export default function Home() {
       const touchEndY = e.changedTouches[0].clientY;
       const totalDelta = touchStartY.current - touchEndY;
 
-      if (Math.abs(totalDelta) > 10 && isMenuOpen) {
-        setIsMenuOpen(false);
-      }
-
       if (Math.abs(totalDelta) > 30) {
         isProcessingSwipe.current = true;
         handleLeftSwipeVisibility(totalDelta, 'touch');
@@ -166,7 +166,7 @@ export default function Home() {
     };
 
     
-  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible]);
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible]);
   
 
 
