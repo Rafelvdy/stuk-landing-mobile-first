@@ -261,6 +261,12 @@
     align-items: center;
 }
 
+@media (max-width: 767px) {
+    .HeroVideoContainer {
+        margin-top: 10vh !important;
+    }
+}
+
 @media (max-width: 768px) {
     .HeroVideoContainer {
         margin-top: 20vh;
