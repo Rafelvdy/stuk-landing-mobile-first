@@ -21,6 +21,7 @@ export default function Home() {
   const [scrollPercentage, setScrollPercentage] = useState(0);
   const touchSwipeTimeout = useRef<NodeJS.Timeout | null>(null);
   const isProcessingSwipe = useRef(false);
+  const [isCommunityVisible, setIsCommunityVisible] = useState(false);
 
   useEffect(() => {
 
@@ -40,6 +41,14 @@ export default function Home() {
       setScrollPercentage(percentage);
     };
 
+    const handleCommunityVisibility = () => {
+      if (isLeftSwipeVisible && deltaY > 0) {
+        setIsCommunityVisible(true);
+      } else if (isLeftSwipeVisible && deltaY < 0) {
+        setIsCommunityVisible(false);
+      }
+    }
+
     const handleLeftSwipeVisibility = (delta: number, inputType: string) => {
       if (Math.abs(delta) < 10) return;
 
@@ -51,6 +60,13 @@ export default function Home() {
         } else if (isLeftSwipeVisible && delta < 0) {
           setIsLeftSwipeVisible(false);
         }
+
+        if (isLeftSwipeVisible && delta > 0) {
+          setIsCommunityVisible(true);
+        } else if (isLeftSwipeVisible && delta < 0) {
+          setIsCommunityVisible(false);
+        }
+
       } else if (inputType === 'touch') {
         // Simplified touch logic - single deliberate swipe when at bottom
         if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
@@ -58,7 +74,14 @@ export default function Home() {
         } else if (isLeftSwipeVisible && delta < 0) {
           setIsLeftSwipeVisible(false);
         }
+
+        if (isLeftSwipeVisible && delta > 0) {
+          setIsCommunityVisible(true);
+        } else if (isLeftSwipeVisible && delta < 0) {
+          setIsCommunityVisible(false);
+        }
       }
+
     };      
 
     const handleNavVisibility = (delta: number) => {
@@ -423,6 +446,15 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+
+        <div className={styles.CommunityContainer}
+        style={{
+          width: isCommunityVisible ? '100%' : '0%',
+          height: isCommunityVisible ? '100vh' : '0vh',
+          transition: 'all 0.3s ease-in-out'
+        }}
+        ></div>
       </div>
     </main>
   );

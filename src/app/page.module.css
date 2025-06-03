@@ -1272,3 +1272,11 @@
         transform: translateY(-10px);
     }
 }
+
+.CommunityContainer {
+    background: #0e2433;
+    width: 0%;
+    height: 0vh;
+    position: absolute;
+    transform: translateY(-100%);
+}
