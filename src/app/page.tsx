@@ -19,8 +19,6 @@ export default function Home() {
   const [isLeftSwipeVisible, setIsLeftSwipeVisible] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
   const [scrollPercentage, setScrollPercentage] = useState(0);
-  const [touchSwipeDirection, setTouchSwipeDirection] = useState(0);
-  const [touchSwipeCount, setTouchSwipeCount] = useState(0);
   const touchSwipeTimeout = useRef<NodeJS.Timeout | null>(null);
   const isProcessingSwipe = useRef(false);
 
