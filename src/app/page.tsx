@@ -22,6 +22,7 @@ export default function Home() {
   const touchSwipeTimeout = useRef<NodeJS.Timeout | null>(null);
   const isProcessingSwipe = useRef(false);
   const [isCommunityVisible, setIsCommunityVisible] = useState(false);
+  const [isSwipeDownVisible, setIsSwipeDownVisible] = useState(true);
   
   // Add throttling refs
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -60,11 +61,13 @@ export default function Home() {
       } else if (isLeftSwipeVisible && delta < 0) {
         setIsLeftSwipeVisible(false);
       }
-
+      
       if (isLeftSwipeVisible && delta > 0) {
         setIsCommunityVisible(true);
+        setIsSwipeDownVisible(false);
       } else if (isLeftSwipeVisible && delta < 0) {
         setIsCommunityVisible(false);
+        setIsSwipeDownVisible(true);
       }
     } else if (inputType === 'touch') {
       if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
@@ -72,11 +75,13 @@ export default function Home() {
       } else if (isLeftSwipeVisible && delta < 0) {
         setIsLeftSwipeVisible(false);
       }
-
+      const swipeContainer = document.querySelector('.SwipeDownContainer') as HTMLElement;
       if (isLeftSwipeVisible && delta > 0) {
         setIsCommunityVisible(true);
+        setIsSwipeDownVisible(false);
       } else if (isLeftSwipeVisible && delta < 0) {
         setIsCommunityVisible(false);
+        setIsSwipeDownVisible(true);
       }
     }
   }, [isAtBottom, isLeftSwipeVisible]);
@@ -267,7 +272,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.SwipeDownContainer}>
+      <div className={styles.SwipeDownContainer} style={{visibility: isSwipeDownVisible ? 'visible' : 'hidden'}}>
           <div className={styles.SwipeDownText}>Swipe Down</div>
           <Image src="/icons/down-arrow.png" alt="Swipe Down" width={64} height={64} className={styles.SwipeDownIcon} />
         </div>
