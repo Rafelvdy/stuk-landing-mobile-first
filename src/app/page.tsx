@@ -41,42 +41,23 @@ export default function Home() {
     const handleLeftSwipeVisibility = (delta: number, inputType: string) => {
       if (Math.abs(delta) < 10) return;
 
+      // Different logic for wheel vs touch
       if (inputType === 'wheel') {
+        // Original wheel logic - works perfectly
         if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
           setIsLeftSwipeVisible(true);
         } else if (isLeftSwipeVisible && delta < 0) {
           setIsLeftSwipeVisible(false);
-        } 
+        }
       } else if (inputType === 'touch') {
+        // Simplified touch logic - single deliberate swipe when at bottom
         if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
-          // Only trigger if we've had consistent downward swipes
-          if (touchSwipeDirection > 0) {
-            setTouchSwipeCount(prev => prev + 1);
-            if (touchSwipeCount >= 2) { // Require at least 2 consistent swipes
-              setIsLeftSwipeVisible(true);
-              setTouchSwipeCount(0);
-            }
-          } else {
-            setTouchSwipeDirection(1);
-            setTouchSwipeCount(1);
-          }
+          setIsLeftSwipeVisible(true);
         } else if (isLeftSwipeVisible && delta < 0) {
-          if (touchSwipeDirection < 0 || touchSwipeCount === 0) {
-            setIsLeftSwipeVisible(false);
-            setTouchSwipeDirection(0);
-            setTouchSwipeCount(0);
-          }
+          setIsLeftSwipeVisible(false);
         }
-
-        if (touchSwipeTimeout.current) {
-          clearTimeout(touchSwipeTimeout.current);
-        }
-        touchSwipeTimeout.current = setTimeout(() => {
-          setTouchSwipeDirection(0);
-          setTouchSwipeCount(0);
-        }, 500);
       }
-    }      
+    };      
 
     const handleNavVisibility = (delta: number) => {
       if (Math.abs(delta) > 10) {
@@ -100,7 +81,7 @@ export default function Home() {
 
       if (inputType !== 'touch') {
         handleNavVisibility(delta);
-        handleLeftSwipeVisibility(delta, 'wheel');
+        handleLeftSwipeVisibility(delta, inputType);
       }
     };
 
@@ -108,6 +89,7 @@ export default function Home() {
       touchStartY.current = e.touches[0].clientY;
       lastTouchY.current = e.touches[0].clientY;
       setInputType('touch');
+      isProcessingSwipe.current = false;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -179,7 +161,7 @@ export default function Home() {
     };
 
     
-  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, touchSwipeDirection, touchSwipeCount]);
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible]);
   
 
 
