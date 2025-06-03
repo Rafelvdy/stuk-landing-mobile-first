@@ -433,6 +433,7 @@ export default function Home() {
               transform: isLeftSwipeVisible ? 'translateX(0)' : 'translateX(100%)',
               transition: 'transform 0.3s ease-in-out'
             }}
+            id="map"
           >
             <div className={styles.MapContent}>
               <div className={styles.MapGraphicTitle}>MAP</div>
