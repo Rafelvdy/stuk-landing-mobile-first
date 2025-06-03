@@ -3,6 +3,7 @@
 import LiquidBackground from "@/components/ui/LiquidBackground";
 import styles from "./page.module.css";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 export default function Home() {
@@ -224,7 +225,7 @@ export default function Home() {
         }}
       >
         <div className={styles.NavBarLeft}>
-          <a href="/"><Image src="/carousel-photos/LSV lander/Logos - Header.png" alt="Logo" width={300} height={300} objectFit="contain" className={styles.NavBarLogo}/></a>
+          <Link href="/"><Image src="/carousel-photos/LSV lander/Logos - Header.png" alt="Logo" width={300} height={300} objectFit="contain" className={styles.NavBarLogo}/></Link>
         </div>
         <div className={styles.NavBarMiddle}>
           <div className={styles.NavLinks}>
