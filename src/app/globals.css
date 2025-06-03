@@ -25,6 +25,12 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overflow: -webkit-paged-y;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 html, body {
