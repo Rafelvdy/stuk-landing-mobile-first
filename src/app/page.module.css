@@ -1563,14 +1563,14 @@
 
 .CommunityTitleContainer {
     position: absolute;
-    top: 20%;
-    left: 5%;
+    top: 27%;
+    left: 10%;
     width: 50%;
 }
 
 .CommunityTitle {
     font-family: var(--font-mono);
-    font-size: 6vw;
+    font-size: 5vw;
     letter-spacing: 0.05em;
 }
 
@@ -1716,7 +1716,7 @@
     position: absolute;
     height: 100px;
     width: 300px;
-    top: -67%;
+    top: -50%;
     left: 60%;
     transform: translate(-50%, -50%);
     display: flex;
