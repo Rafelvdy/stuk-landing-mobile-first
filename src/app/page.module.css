@@ -1686,17 +1686,20 @@
     color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    position: relative;
+
 }
 
 .LocationLinks div::after {
     content: attr(data-full);
-    display: none;
+    display: none;  
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: black;
+    
 }
 
 .LocationLinks div:hover {
@@ -1770,4 +1773,41 @@
 .EventInfoButton:hover {
     background: white;
     color: black;
+}
+
+@media (min-width: 768px) {
+    .EventInfoTitle {
+        font-size: 2.5vw;
+    }
+
+    .EventInfoButtonText {
+        font-size: 2vw;
+    }
+
+    .EventInfoButton {
+        font-size: 1.8vw;
+    }
+    
+    .CommunityTitleContainer {
+        top: 22%;
+    }
+
+    .CommunityTitle {
+        font-size: 4vw;
+    }
+
+    .LinksContainer {
+        margin-top: 45%;
+    }
+
+    .LocationLinks {
+     
+    }
+
+    .LocationLinks div {
+        font-size: 2.5vw;
+        width: 18vw;
+        text-align: center;
+        display: flex;
+    }
 }

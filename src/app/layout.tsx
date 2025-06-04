@@ -1,5 +1,9 @@
 import { Inter, Space_Grotesk, Space_Mono } from 'next/font/google';
 import './globals.css';
+import { Metadata } from "next";
+
+
+
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -19,7 +23,8 @@ const spaceMono = Space_Mono({
 
 export const metadata = {
   title: 'STUK Startup Village',
-  description: 'STUK Startup Village - Where Innovation Meets Community',
+  description: '',
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
 };
 
 export default function RootLayout({
