@@ -6,6 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
 
+
+
+
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [deltaY, setDeltaY] = useState(0);
@@ -217,7 +220,7 @@ export default function Home() {
         clearTimeout(scrollTimeout.current);
       }
     };
-  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility, isCommunityVisible, isSwipeDownVisible]);
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility, isSwipeDownVisible]);
 
   return (
     <main>

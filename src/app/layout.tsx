@@ -1,6 +1,5 @@
 import { Inter, Space_Grotesk, Space_Mono } from 'next/font/google';
 import './globals.css';
-import { Metadata } from "next";
 
 
 
