@@ -564,11 +564,35 @@ export default function Home() {
                 >
                   CREATOR
                 </div>
-                <div className={styles.CreatorButton}>ENGINEER</div>
-                <div className={styles.CreatorButton}>BUSINESS</div>
+                <div className={styles.CreatorButton}
+                  onClick={() => window.open('https://t.me/+ccdcCEXZy4EzZTRk', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >
+                  ENGINEER
+                </div>
+                <div className={styles.CreatorButton}
+                  onClick={() => window.open('https://t.me/+Pxxr0XHZjBJiMTg0', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >
+                  BUSINESS
+                </div>
               </div>
               <div className={styles.LocationLinks}>
-                <div className={styles.ManButton} data-full="MANCHESTER" >MAN</div>
+                <div 
+                className={styles.ManButton} 
+                data-full="MANCHESTER" 
+                onClick={() => window.open('https://t.me/+jr1ZlPz7ePI5ZDlk', '_blank')}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+                style={{ touchAction: 'manipulation' }}
+                >
+                  MAN
+                </div>
+                <div className={styles.GlasButton} data-full="GLASGOW">GLA</div>
                 <div className={styles.BirButton} data-full="BIRMINGHAM">BIR</div>
                 <div className={styles.NewButton} data-full="NEWCASTLE">NEW</div>
                 <div className={styles.ExeButton} data-full="EXETER">EXE</div>
