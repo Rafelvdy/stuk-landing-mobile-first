@@ -585,7 +585,7 @@
 .PitchSubtitle {
     font-family: var(--font-sans);
     font-size: clamp(14px, 3vw, 20px);
-    color: #999;
+    color: white;
     margin: 0 0 2px 0;
     width: 80%;
     text-align: center;
@@ -1620,7 +1620,10 @@
     position: relative;
     font-family: var(--font-grotesk);
     font-weight: 700;
-    font-size: 4vw;
+    font-size: clamp(10px, 4vw, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @property --angle {
@@ -1642,6 +1645,39 @@
     z-index: -1;
     animation: spin 2s linear infinite;
 }
+
+@media (min-width: 624px) {
+    .SolanaButton::after, .SolanaButton::before {
+        width: 101.2%;
+    }
+}
+
+@media (min-width: 700px) {
+    .SolanaButton::after, .SolanaButton::before {
+        width: 101%;
+    }
+}
+
+@media (min-width: 940px) {
+    .SolanaButton::after, .SolanaButton::before {
+        width: 100.8%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .SolanaButton::after, .SolanaButton::before {
+        width: 100.6%;
+    }
+}
+
+
+@media (min-width: 1350px) {
+    .SolanaButton::after, .SolanaButton::before {
+        width: 100.5%;
+        height: 111%;
+    }
+}
+
 
 .SolanaButton::before {
     filter: blur(1.5rem);
@@ -1672,7 +1708,7 @@
     justify-content: center;
     font-family: var(--font-mono);
     font-weight: 700;
-    font-size: 4.5vw;
+    font-size: clamp(14px, 4.5vw, 22px);
     letter-spacing: 0.05em;
     padding: 0 12px;
     color: white;
@@ -1696,7 +1732,7 @@
     border-radius: 10px;
     font-family: var(--font-mono);
     font-weight: 700;
-    font-size: 3.5vw;
+    font-size: clamp(10px, 3.5vw, 15px);
     letter-spacing: 0.05em;
     color: white;
     cursor: pointer;
@@ -1735,7 +1771,7 @@
 
 .EventInfoContainer {
     position: absolute;
-    height: 120px;
+    height: auto;
     width: 100%;
     background: #061017;
     top: 0%;
@@ -1792,23 +1828,23 @@
 
 @media (min-width: 700px) {
     .EventInfoTitle {
-        font-size: 2.5vw;
+        font-size: clamp(10px, 2.5vw, 15px);
     }
 
     .EventInfoButtonText {
-        font-size: 2vw;
+        font-size: clamp(10px, 2vw, 15px);
     }
 
     .EventInfoButton {
-        font-size: 1.8vw;
+        font-size: clamp(10px, 1.8vw, 15px);
     }
     
     .CommunityTitleContainer {
-        top: 17vh;
+        top: 20vh;
     }
 
     .CommunityTitle {
-        font-size: 4vw;
+        font-size: clamp(25px, 4vw, 40px);
     }
 
     .LinksContainer {
