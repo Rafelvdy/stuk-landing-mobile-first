@@ -511,7 +511,15 @@ export default function Home() {
               <div className={styles.MapGraphicTitle}>MAP</div>
               <div className={styles.MapGraphic}></div>
               <div className={styles.RegisterText}>Register To Startup Village</div>
-              <a href="https://lu.ma/LondonStartupVillage" target="_blank" rel="noopener noreferrer"><div className={styles.RegisterButtonWide}>Register</div></a>
+              <button 
+                className={styles.RegisterButtonWide} 
+                onClick={() => window.open('https://lu.ma/LondonStartupVillage', '_blank')}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+                style={{ touchAction: 'manipulation', zIndex: 10 }}
+                >
+                  Register
+                </button>
             </div>
           </div>
         </div>

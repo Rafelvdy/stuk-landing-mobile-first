@@ -1424,10 +1424,11 @@
 .RegisterButtonWide {
     background: rgba(106, 105, 195, 0.3);
     border-radius: 999px;
-    padding: 10px 20px;
+    padding: 10px 80px;
     font-family: var(--font-grotesk);
     /* width: 46.875vw; */
-    width: 100%;
+    width: auto;
+
     margin-top: 20px;
     text-align: center;
     border: 2px solid rgba(255, 255, 255, 0.1);
