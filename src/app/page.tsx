@@ -555,7 +555,15 @@ export default function Home() {
                   </button>
               </div>
               <div className={styles.SectorLinks}>
-                <div className={styles.CreatorButton}>CREATOR</div>
+                <div 
+                  className={styles.CreatorButton}
+                  onClick={() => window.open('https://t.me/+-EtHEi2L1LYyYzdk', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >
+                  CREATOR
+                </div>
                 <div className={styles.CreatorButton}>ENGINEER</div>
                 <div className={styles.CreatorButton}>BUSINESS</div>
               </div>
