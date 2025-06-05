@@ -409,7 +409,7 @@ export default function Home() {
                       className={`${styles.ToDoItem} ${activeToDoItem === 0 ? styles.active : ''}`}
                       onClick={() => setActiveToDoItem(activeToDoItem === 0 ? null : 0)}
                     >
-                      Find Collectables at Gallery
+                      Find Collectables and pass quizzes for prizes
                       <div className={styles.DropDownIcon}>
                         <Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} />
                       </div>
@@ -418,7 +418,7 @@ export default function Home() {
                       className={`${styles.ToDoItem} ${activeToDoItem === 1 ? styles.active : ''}`}
                       onClick={() => setActiveToDoItem(activeToDoItem === 1 ? null : 1)}
                     >
-                      Pass Quizes for Prizes
+                      Daily Content Challenge
                       <div className={styles.DropDownIcon}>
                         <Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} />
                       </div>
@@ -426,15 +426,6 @@ export default function Home() {
                     <div 
                       className={`${styles.ToDoItem} ${activeToDoItem === 2 ? styles.active : ''}`}
                       onClick={() => setActiveToDoItem(activeToDoItem === 2 ? null : 2)}
-                    >
-                      Daily Content Challenge
-                      <div className={styles.DropDownIcon}>
-                        <Image src="/icons/down-arrow.png" alt="Down Arrow" width={24} height={24} />
-                      </div>
-                    </div>
-                    <div 
-                      className={`${styles.ToDoItem} ${activeToDoItem === 3 ? styles.active : ''}`}
-                      onClick={() => setActiveToDoItem(activeToDoItem === 3 ? null : 3)}
                     >
                       24hr Hackathon
                       <div className={styles.DropDownIcon}>
@@ -445,19 +436,11 @@ export default function Home() {
                   
                   {activeToDoItem === 0 && (
                     <div className={styles.ExpandedToDoItem}>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <p>Dive into our interactive digital gallery, test your knowledge with a daily quiz, and catch two expert speakers sharing real insights and future facing ideas.</p>
                     </div>
                   )}
                   
                   {activeToDoItem === 1 && (
-                    <div className={styles.ExpandedToDoItem}>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                  )}
-                  
-                  {activeToDoItem === 2 && (
                     <div className={styles.ExpandedToDoItem}>
                       <h1>Every day, we&apos;re rewarding great storytelling...</h1>
                       <p>Post your experience at Startup Village, whether its a tweet, photo, thread, or video and earn up to $100 each day!</p>
@@ -466,10 +449,9 @@ export default function Home() {
                     </div>
                   )}
                   
-                  {activeToDoItem === 3 && (
+                  {activeToDoItem === 2 && (
                     <div className={styles.ExpandedToDoItem}>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <p>A 24hr hackathon, focused on shipping mobile apps fast. Go from idea to app in minutes, not days.  All building toward the Seeker launch this August</p>
                     </div>
                   )}
                 </div>
