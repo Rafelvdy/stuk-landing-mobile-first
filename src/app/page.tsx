@@ -544,7 +544,15 @@ export default function Home() {
             </div>
             <div className={styles.LinksContainer}>
               <div className={styles.SolanaLink}>
-                <button className={styles.SolanaButton}>Solana UK</button>
+                <button 
+                  className={styles.SolanaButton}
+                  onClick={() => window.open('https://t.me/+oznd043p-Fw4NDc0', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                  >
+                    Solana UK
+                  </button>
               </div>
               <div className={styles.SectorLinks}>
                 <div className={styles.CreatorButton}>CREATOR</div>
