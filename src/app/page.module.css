@@ -1404,20 +1404,20 @@
     height: auto;
     width: 80%;
     max-width: 1000px;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
 .MapGraphicTitle {
     font-family: var(--font-mono);
-    font-size: 9vw;
+    font-size: clamp(10px, 9vw, 40px);
     letter-spacing: 0.05em;
 }
 
 .RegisterText {
     font-family: var(--font-inter);
     font-weight: 700;
-    font-size: 5vw;
+    font-size: clamp(10px, 5vw, 20px);
     margin-top: 2vh;
 }
 
@@ -1452,24 +1452,35 @@
     .MapContent {
         margin-bottom: 50px;
     }
+
+    .RegisterText {
+        font-size: clamp(14px, 5vw, 30px);
+    }
+
+    .MapGraphicTitle {
+        font-size: clamp(14px, 5vw, 40px);
+    }
+
+    .MapGraphic {
+        margin-top: 0px;
+    }
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
     .MapGraphicTitle {
-        font-size: clamp(14px, 5vw, 50px);
+        font-size: clamp(14px, 5vw, 45px);
     }
 
-    .MapContent {
-        margin-top: 10vh;
+    .MapGraphic {
+        margin-top: 0px;
     }
 
     .MapContainer {
-        height: 105vh;
+        height: 100vh;
     }
 
     .RegisterText {
-        font-size: clamp(14px, 5vw, 40px);
-        margin-top: 1vh;
+        font-size: clamp(14px, 5vw, 35px);
     }
 }
 
@@ -1479,7 +1490,7 @@
     }
 
     .MapContent {
-        margin-top: 10vh;
+        margin-top: clamp(10px, 3vh, 15px);
     }
 
     .MapGraphic {
@@ -1488,6 +1499,13 @@
 
     .RegisterText {
         font-size: clamp(14px, 5vw, 40px);
+    }
+}
+
+@media (min-width: 1080px) {
+    .MapGraphic {
+        margin-bottom: 0px;
+        width: clamp(100px, 70%, 850px);
     }
 }
 
@@ -1505,7 +1523,7 @@
 
 .SwipeDownText {
     font-family: var(--font-mono);
-    font-size: 4vw;
+    font-size: clamp(10px, 4vw, 18px);
     color: rgba(255, 255, 255, 0.585);
 }
 
@@ -1532,6 +1550,10 @@
 @media (min-width: 1024px) {
     .SwipeDownContainer {
         margin-top: 3vh;
+    }
+
+    .SwipeDownText {
+        font-size: clamp(10px, 2vw, 18px);
     }
 }
 
