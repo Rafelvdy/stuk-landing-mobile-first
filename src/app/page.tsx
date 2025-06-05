@@ -268,7 +268,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.NavBarRight}>
-          <button className={styles.RegisterButton}>Register</button>
+          <a href="https://lu.ma/LondonStartupVillage" target="_blank" rel="noopener noreferrer"><button className={styles.RegisterButton}>Register</button></a>
         </div>
 
         <div className={styles.MobileMenu}>
@@ -287,7 +287,7 @@ export default function Home() {
               <a href="#themes"><p>Themes</p></a>
               <p>Community</p>
             </div>
-            <button className={styles.MobileMenuButton}>Register</button>
+            <a href="https://lu.ma/LondonStartupVillage" target="_blank" rel="noopener noreferrer"><button className={styles.MobileMenuButton}>Register</button></a>
           </div>
         </div>
       </div>
@@ -511,7 +511,7 @@ export default function Home() {
               <div className={styles.MapGraphicTitle}>MAP</div>
               <div className={styles.MapGraphic}></div>
               <div className={styles.RegisterText}>Register To Startup Village</div>
-              <div className={styles.RegisterButtonWide}>Register</div>
+              <a href="https://lu.ma/LondonStartupVillage" target="_blank" rel="noopener noreferrer"><div className={styles.RegisterButtonWide}>Register</div></a>
             </div>
           </div>
         </div>
