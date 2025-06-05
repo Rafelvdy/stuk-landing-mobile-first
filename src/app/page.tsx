@@ -592,11 +592,50 @@ export default function Home() {
                 >
                   MAN
                 </div>
-                <div className={styles.GlasButton} data-full="GLASGOW">GLA</div>
-                <div className={styles.BirButton} data-full="BIRMINGHAM">BIR</div>
-                <div className={styles.NewButton} data-full="NEWCASTLE">NEW</div>
-                <div className={styles.ExeButton} data-full="EXETER">EXE</div>
-                <div className={styles.BriButton} data-full="BRIGHTON">BRI</div>
+                <div 
+                  className={styles.GlasButton} 
+                  data-full="GLASGOW"
+                  onClick={() => window.open('https://t.me/STUK_COW_GLA', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >
+                  GLA
+                </div>
+                <div 
+                  className={styles.BirButton} 
+                  data-full="BIRMINGHAM"
+                  onClick={() => window.open('https://t.me/+5Ew0ehETXAA0ZDRk', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >
+                  BIR
+                </div>
+                <div 
+                  className={styles.NewButton} 
+                  data-full="NEWCASTLE"
+                  onClick={() => window.open('https://t.me/+znstcLhWIYJjM2I0', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >NEW</div>
+                <div 
+                  className={styles.ExeButton} 
+                  data-full="EXETER"
+                  onClick={() => window.open('https://t.me/+9i3c0XmADT9kZjFk', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >EXE</div>
+                <div 
+                  className={styles.BriButton} 
+                  data-full="BRIGHTON"
+                  onClick={() => window.open('https://t.me/+7nu6ZOw8VWExZGVk', '_blank')}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
+                >BRI</div>
               </div>
               
             </div>
