@@ -714,6 +714,13 @@
     cursor: pointer;
 }
 
+@media (min-width: 0px) and (max-width: 625px) {
+    .ToDoItem {
+        padding: .5vw 1vw;
+        text-align: center;
+    }
+}
+
 /* Add active state for ToDoItem */
 .ToDoItem.active {
     background-color: #3F84E5;
@@ -1399,7 +1406,7 @@
 }
 
 .MapGraphic {
-    background: grey;
+    /* background: grey; */
     aspect-ratio: 16/9;
     height: auto;
     width: 80%;

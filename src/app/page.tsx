@@ -491,7 +491,8 @@ export default function Home() {
           >
             <div className={styles.MapContent}>
               <div className={styles.MapGraphicTitle}>MAP</div>
-              <div className={styles.MapGraphic}></div>
+              {/* <div className={styles.MapGraphic}><Image src="/graphics/map.png" alt="Map" width={1200} height={1200} objectFit="contain" /></div> */}
+              <Image src="/graphics/map.png" alt="Map" width={900} height={900} objectFit="contain" />
               <div className={styles.RegisterText}>Register To Startup Village</div>
               <button 
                 className={styles.RegisterButtonWide} 
