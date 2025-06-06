@@ -6,9 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
 
-
-
-
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [deltaY, setDeltaY] = useState(0);
@@ -27,6 +24,12 @@ export default function Home() {
   const [isCommunityVisible, setIsCommunityVisible] = useState(false);
   const [isSwipeDownVisible, setIsSwipeDownVisible] = useState(true);
   
+  // Add touchpad-specific state
+  const [touchpadSwipeStage, setTouchpadSwipeStage] = useState(0); // 0: normal, 1: map, 2: community
+  const wheelBuffer = useRef<number[]>([]);
+  const lastWheelTime = useRef(0);
+  const wheelAccumulator = useRef(0);
+  
   // Add throttling refs
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
   const lastScrollTime = useRef(0);
@@ -37,7 +40,7 @@ export default function Home() {
     const windowHeight = window.innerHeight;
     const docHeight = document.documentElement.scrollHeight;
 
-    const atBottom = scrollTop + windowHeight >= docHeight - 5;
+    const atBottom = scrollTop + windowHeight >= docHeight - 10; // Increased threshold
     const percentage = Math.min((scrollTop / (docHeight - windowHeight)) * 100, 100);
 
     setIsAtBottom(atBottom);
@@ -59,20 +62,28 @@ export default function Home() {
 
     // Different logic for wheel vs touch
     if (inputType === 'wheel') {
-      if (isAtBottom && delta > 0 && !isLeftSwipeVisible ) {
-        setIsLeftSwipeVisible(true);
-      } else if (isLeftSwipeVisible && delta < 0 && !isCommunityVisible) {
-        setIsLeftSwipeVisible(false);
-      }
-      
-      if (isLeftSwipeVisible && delta > 0) {
-        setIsCommunityVisible(true);
-        setIsSwipeDownVisible(false);
-      } else if (isLeftSwipeVisible && delta < 0) {
-        setIsCommunityVisible(false);
-        setIsSwipeDownVisible(true);
+      // For touchpad/wheel, use staged approach
+      if (isAtBottom && delta > 0) {
+        if (touchpadSwipeStage === 0) {
+          setIsLeftSwipeVisible(true);
+          setTouchpadSwipeStage(1);
+        } else if (touchpadSwipeStage === 1 && delta > 50) { // Higher threshold for community
+          setIsCommunityVisible(true);
+          setIsSwipeDownVisible(false);
+          setTouchpadSwipeStage(2);
+        }
+      } else if (delta < 0) {
+        if (touchpadSwipeStage === 2 && isCommunityVisible) {
+          setIsCommunityVisible(false);
+          setIsSwipeDownVisible(true);
+          setTouchpadSwipeStage(1);
+        } else if (touchpadSwipeStage === 1 && !isCommunityVisible) {
+          setIsLeftSwipeVisible(false);
+          setTouchpadSwipeStage(0);
+        }
       }
     } else if (inputType === 'touch') {
+      // Keep original touch logic
       if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
         setIsLeftSwipeVisible(true);
       } else if (isLeftSwipeVisible && delta < 0 && !isCommunityVisible) {
@@ -86,14 +97,24 @@ export default function Home() {
         setIsSwipeDownVisible(true);
       }
     }
-  }, [isAtBottom, isLeftSwipeVisible]);
+  }, [isAtBottom, isLeftSwipeVisible, touchpadSwipeStage, isCommunityVisible]);
+
+  // Reset touchpad stage when not at bottom
+  useEffect(() => {
+    if (!isAtBottom && touchpadSwipeStage > 0) {
+      setTouchpadSwipeStage(0);
+      setIsLeftSwipeVisible(false);
+      setIsCommunityVisible(false);
+      setIsSwipeDownVisible(true);
+    }
+  }, [isAtBottom, touchpadSwipeStage]);
 
   useEffect(() => {
     if (!isNavVisible && isMenuOpen) {
       setIsMenuOpen(false);
     }
 
-    // Throttled scroll handler
+    // Improved scroll handler with better touchpad detection
     const handleScroll = () => {
       const now = Date.now();
       if (now - lastScrollTime.current < 16) return; // Throttle to ~60fps
@@ -111,7 +132,11 @@ export default function Home() {
       // Only process nav/swipe logic if not touch input
       if (inputType !== 'touch') {
         handleNavVisibility(delta);
-        handleLeftSwipeVisibility(delta, inputType);
+        
+        // Don't trigger swipe logic during normal scrolling
+        if (Math.abs(delta) < 50) { // Only for significant scroll movements
+          handleLeftSwipeVisibility(delta, inputType);
+        }
       }
     };
 
@@ -142,7 +167,6 @@ export default function Home() {
       if (touchDelta < 30 && isCommunityVisible) {
         e.preventDefault();
       }
-
 
       // Update delta based on touch movement
       setDeltaY(touchDelta);
@@ -181,11 +205,42 @@ export default function Home() {
       }
     };
 
-    // Simplified wheel handler
+    // Improved wheel handler with better touchpad gesture detection
     const handleWheel = (e: WheelEvent) => {
+      const now = Date.now();
+      const timeDiff = now - lastWheelTime.current;
+      lastWheelTime.current = now;
+      
       setDeltaY(e.deltaY);
       setInputType('wheel');
-      handleLeftSwipeVisibility(e.deltaY, 'wheel');
+      
+      // Buffer wheel events to detect intentional swipes vs normal scrolling
+      wheelBuffer.current.push(e.deltaY);
+      if (wheelBuffer.current.length > 5) {
+        wheelBuffer.current.shift();
+      }
+      
+      // Accumulate wheel delta for gesture detection
+      if (timeDiff < 100) { // Events within 100ms are part of same gesture
+        wheelAccumulator.current += e.deltaY;
+      } else {
+        wheelAccumulator.current = e.deltaY;
+      }
+      
+      // Only trigger swipe logic for significant accumulated movement
+      const avgDelta = wheelBuffer.current.reduce((sum, val) => sum + val, 0) / wheelBuffer.current.length;
+      
+      if (Math.abs(wheelAccumulator.current) > 100 && Math.abs(avgDelta) > 20) {
+        handleLeftSwipeVisibility(wheelAccumulator.current, 'wheel');
+        wheelAccumulator.current = 0; // Reset accumulator after triggering
+      }
+      
+      // Clear accumulator after period of inactivity
+      setTimeout(() => {
+        if (now - lastWheelTime.current > 200) {
+          wheelAccumulator.current = 0;
+        }
+      }, 300);
     };
 
     const handleMouseMove = () => {
@@ -220,7 +275,7 @@ export default function Home() {
         clearTimeout(scrollTimeout.current);
       }
     };
-  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility, isCommunityVisible, isSwipeDownVisible]);
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility, isCommunityVisible, isSwipeDownVisible, touchpadSwipeStage]);
 
   return (
     <main>
@@ -492,7 +547,7 @@ export default function Home() {
             <div className={styles.MapContent}>
               <div className={styles.MapGraphicTitle}>MAP</div>
               {/* <div className={styles.MapGraphic}><Image src="/graphics/map.png" alt="Map" width={1200} height={1200} objectFit="contain" /></div> */}
-              <Image src="/graphics/map.png" alt="Map" width={900} height={900} objectFit="contain" />
+              {/* <Image src="/graphics/map.png" alt="Map" width={900} height={900} objectFit="contain" /> */}
               <div className={styles.RegisterText}>Register To Startup Village</div>
               <button 
                 className={styles.RegisterButtonWide} 
