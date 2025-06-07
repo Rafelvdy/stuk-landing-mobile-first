@@ -591,7 +591,7 @@ export default function Home() {
 
             <div className={styles.ThemesContent}>
 
-              <div className={styles.ThemesGraphic}>
+         
                 {/* <div className={styles.GraphicSlider}>
                   <div className={styles.GraphicItem}><h1>1</h1></div>
                   <div className={styles.GraphicItem}><h1>2</h1></div>
@@ -606,7 +606,7 @@ export default function Home() {
                   <button className={styles.GraphicPrevious}>{'<'}</button>
                 </div> */}
                 <Carousel />
-              </div>
+             
 
               <h2 className={styles.ThemesGraphicSubtitle}>Each day at Startup Village is themed around a different frontier of tech.</h2>
             </div>
