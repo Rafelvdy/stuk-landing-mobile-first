@@ -39,19 +39,19 @@ export default function Home() {
   const lastScrollTime = useRef(0);
 
   const Carousel = () => {
-    const totalSlides = 9;
+    const totalSlides = 10;
     const [currentSlide, setCurrentSlide] = useState(1);
     const [availableSlides, setAvailableSlides] = useState(1);
 
-    const TIME_UNIT = 'minutes'; //Change to hours for production
+    const TIME_UNIT: string = 'minutes'; //Change to hours for production
     const START_DATE = new Date() //right now
     // const START_DATE = new Date('2025-05-07')
 
     const calculateAvailableSlides = () => {
       const now = new Date();
-      const timeDiff = now - START_DATE;
+      const timeDiff = now.getTime() - START_DATE.getTime();
 
-      let timeUnitsElapsed;
+      let timeUnitsElapsed: number = 0;
       if (TIME_UNIT === 'days') {
         timeUnitsElapsed = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1
       } else if (TIME_UNIT === 'minutes') {
@@ -94,36 +94,33 @@ export default function Home() {
     return (
       <div className={styles.ThemesGraphic}>
         <div className={styles.GraphicSlider}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((slideNumber) => (
-            <div 
-              key={slideNumber}
-              className={`${styles.GraphicItem} ${slideNumber > availableSlides ? styles.locked : ''}`}
-              style={{
-                transform: slideNumber === currentSlide ? 'translateX(0%)' : 
-                          slideNumber > currentSlide ? 'translateX(0%)' : 'translateX(100%)',
-                zIndex: totalSlides - slideNumber + 1,
-                opacity: slideNumber > availableSlides ? 0.5 : 1,
-                pointerEvents: slideNumber > availableSlides ? 'none' : 'auto'
-              }}
-            >
-              <h1>{slideNumber > availableSlides ? `🔒 ${slideNumber}` : slideNumber}</h1>
-              {slideNumber > availableSlides && (
-                <p>Available in {slideNumber - availableSlides} {TIME_UNIT === 'minutes' ? 'minutes' : 'hours'}</p>
-              )}
-            </div>
-          ))}
+          {Array.from({ length: availableSlides }, (_, index) => {
+            const slideNumber = index + 1;
+            return (
+              <div 
+                key={slideNumber}
+                className={styles.GraphicItem}
+                style={{
+                  transform: slideNumber === currentSlide ? 'translateX(0%)' : 'translateX(100%)',
+                  zIndex: availableSlides - slideNumber + 1
+                }}
+              >
+                <h1>{slideNumber}</h1>
+              </div>
+            );
+          })}
         </div>
         <button 
             className={styles.GraphicNext}
             onClick={handleNext}
-            disabled={currentSlide >= totalSlides}
+            disabled={currentSlide >= totalSlides || availableSlides <= 1 || currentSlide === availableSlides}
           >
             {'>'}
           </button>
           <button 
             className={styles.GraphicPrevious}
             onClick={handlePrevious}
-            disabled={currentSlide <= 1}
+            disabled={currentSlide <= 1 || availableSlides <= 1}
           >
             {'<'}
           </button>

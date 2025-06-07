@@ -886,10 +886,10 @@
 .ThemesGraphic {
     width: 100%;
     aspect-ratio: 16/9;
-    background: #404040;
+    /* background: #404040; */
     border-radius: 8px;
     margin-bottom: 1rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Add shadow for emphasis */
+    /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); Add shadow for emphasis */
     position: relative; /* For z-index positioning */
     z-index: 2; /* Ensure graphic appears above other elements */
 }
