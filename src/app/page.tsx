@@ -292,7 +292,7 @@ export default function Home() {
       <LiquidBackground />
 
       {/* Fixed display panel */}
-      <div className="fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
+      <div className="hidden fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
         <div>Scroll Y: {scrollY}px</div>
         <div>Delta Y: {deltaY.toFixed(1)}px</div>
         <div className={`${deltaY > 0 ? 'text-red-400' : deltaY < 0 ? 'text-green-400' : 'text-gray-400'}`}>
@@ -613,6 +613,9 @@ export default function Home() {
                   onClick={() => setSectorExpanded(!sectorExpanded)}
                   onMouseEnter={() => setSectorExpanded(true)}
                   onMouseLeave={() => setSectorExpanded(false)}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
                 >
                   <div className={styles.SectorButtonMain}>SECTORS</div>
                   <div className={`${styles.SectorButtonsContainer} ${sectorExpanded ? styles.visible : ''}`}>
@@ -660,6 +663,9 @@ export default function Home() {
                   onClick={() => setLocationExpanded(!locationExpanded)}
                   onMouseEnter={() => setLocationExpanded(true)}
                   onMouseLeave={() => setLocationExpanded(false)}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
+                  style={{ touchAction: 'manipulation' }}
                 >
                   <div className={styles.LocationButtonMain}>LOCATIONS</div>
                   <div className={`${styles.LocationButtonsContainer} ${locationExpanded ? styles.visible : ''}`}>
