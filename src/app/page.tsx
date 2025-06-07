@@ -593,7 +593,7 @@ export default function Home() {
             <div className={styles.CommunityTitle}>What&apos;s Next? <b>Join Your Local Community on Telegram</b></div>
           </div>
           
-          <div className={styles.LinksContainer}>
+          
             <div className={styles.SolanaLink}>
               <button 
                 className={styles.SolanaButton}
@@ -605,6 +605,7 @@ export default function Home() {
                 Solana UK
               </button>
             </div>
+          <div className={styles.LinksContainer}>
             
             <div className={styles.SectorLinks}>
               <div 
