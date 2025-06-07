@@ -446,6 +446,8 @@ export default function Home() {
           <div 
             className={`${styles.MenuButtonContainer} ${isMenuOpen ? styles.open : ''}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onTouchStart={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
           >
             <span></span>
             <span></span>
