@@ -32,6 +32,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 .NavLinks {
@@ -54,6 +55,7 @@
     cursor: pointer;
     color: var(--foreground);
     transition: color 0.3s ease, scale 0.1s ease;
+    color: white;
 }
 
 .NavLinks p:hover {
@@ -67,6 +69,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.NavBarRight p {
+    color: white;
 }
 
 .MobileMenu {
@@ -209,7 +215,7 @@
     font-weight: 600;
     font-size: clamp(12px, 1.3vw, 18px);
     background: rgba(255, 255, 255, 0.1);
-    color: var(--foreground);
+    color: white;
     border-radius: 999px;
     height: 50px;
     width: clamp(100px, 10vw, 150px);
@@ -865,6 +871,7 @@
     color: var(--foreground);
     text-align: center;
     margin-bottom: 3rem;
+    color: white;
 }
 
 .ThemesContent {
@@ -897,6 +904,7 @@
     line-height: 1.3;
     margin-bottom: 2rem;
     max-width: 90%; /* Control width of subtitle */
+    color: white;
 }
 
 .ThemesXtraInfo {
@@ -984,6 +992,7 @@
         margin-bottom: 1.5rem;
         font-size: 1rem;
         max-width: 95%;
+
     }
 
     .ThemesXtraInfoTextList {
@@ -1384,6 +1393,58 @@
         border-left: 4px solid rgba(255, 255, 255, 0.2);
     }
 }
+
+
+.GraphicSlider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.GraphicItem {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: black;
+    border-radius: 10px;
+    padding: 20px;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.GraphicNext, .GraphicPrevious {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 999px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.GraphicNext:hover, .GraphicPrevious:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.GraphicNext:disabled, .GraphicPrevious:disabled {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.GraphicNext {
+    left: unset;
+    right: 0%;
+}
+
 
 .MapContainer {
     /* background:rgba(255,255,255,0.01);
