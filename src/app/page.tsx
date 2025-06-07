@@ -383,7 +383,7 @@ export default function Home() {
       <LiquidBackground />
 
       {/* Fixed display panel */}
-      <div className="fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
+      <div className="hidden fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
         <div>Scroll Y: {scrollY}px</div>
         <div>Delta Y: {deltaY.toFixed(1)}px</div>
         <div className={`${deltaY > 0 ? 'text-red-400' : deltaY < 0 ? 'text-green-400' : 'text-gray-400'}`}>
