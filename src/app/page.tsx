@@ -69,7 +69,8 @@ export default function Home() {
               <h1>{slideNumber}</h1>
             </div>
           ))}
-          <button 
+        </div>
+        <button 
             className={styles.GraphicNext}
             onClick={handleNext}
             disabled={currentSlide >= totalSlides}
@@ -83,7 +84,6 @@ export default function Home() {
           >
             {'<'}
           </button>
-        </div>
       </div>
     );
   };

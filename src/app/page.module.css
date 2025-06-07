@@ -1442,10 +1442,43 @@
 
 .GraphicNext {
     left: unset;
-    right: 0%;
+    right: -10%;
 }
 
+.GraphicPrevious {
+    left: -10%;
+}
 
+@media (max-width: 706px) {
+    .GraphicNext {
+        right: 2%;
+    }
+
+    .GraphicPrevious {
+        left: 2%;
+    }
+}
+
+@media (min-width: 778px) and (max-width: 941px) {
+    .GraphicNext {
+        right: -8%;
+    }
+
+    .GraphicPrevious {
+        left: -8%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 942px) {
+    .GraphicNext {
+        right: -7%;
+    }
+
+    .GraphicPrevious {
+        left: -7%;
+    }
+}
+ 
 .MapContainer {
     /* background:rgba(255,255,255,0.01);
     backdrop-filter: blur(10px); */
