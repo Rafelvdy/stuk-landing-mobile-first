@@ -23,6 +23,9 @@ export default function Home() {
   const isProcessingSwipe = useRef(false);
   const [isCommunityVisible, setIsCommunityVisible] = useState(false);
   const [isSwipeDownVisible, setIsSwipeDownVisible] = useState(true);
+
+  const [sectorExpanded, setSectorExpanded] = useState(false);
+  const [locationExpanded, setLocationExpanded] = useState(false);
   
   // Add touchpad-specific state
   const [touchpadSwipeStage, setTouchpadSwipeStage] = useState(0); // 0: normal, 1: map, 2: community
@@ -59,46 +62,53 @@ export default function Home() {
 
   const handleLeftSwipeVisibility = useCallback((delta: number, inputType: string) => {
     if (Math.abs(delta) < 10) return;
-
+  
     // Different logic for wheel vs touch
     if (inputType === 'wheel') {
-      // For touchpad/wheel, use staged approach
+      // For touchpad/wheel, use staged approach with stricter conditions
       if (isAtBottom && delta > 0) {
-        if (touchpadSwipeStage === 0) {
+        if (touchpadSwipeStage === 0 && Math.abs(wheelAccumulator.current) > 150) { // Increased threshold
           setIsLeftSwipeVisible(true);
           setTouchpadSwipeStage(1);
-        } else if (touchpadSwipeStage === 1 && delta > 50) { // Higher threshold for community
+          setDeltaY(0);
+          wheelAccumulator.current = 0; // Reset immediately
+          return;
+        } else if (touchpadSwipeStage === 1 && Math.abs(wheelAccumulator.current) > 200 && isLeftSwipeVisible) { // Much higher threshold for community
           setIsCommunityVisible(true);
           setIsSwipeDownVisible(false);
           setTouchpadSwipeStage(2);
+          setDeltaY(0); 
+          wheelAccumulator.current = 0; // Reset immediately
+          return;
         }
-      } else if (delta < 0) {
-        if (touchpadSwipeStage === 2 && isCommunityVisible) {
+      } else if (delta < 0) { // Changed from delta < 1 to delta < 0 for stricter upward detection
+        if (touchpadSwipeStage === 2 && isCommunityVisible && Math.abs(wheelAccumulator.current) > 100) {
           setIsCommunityVisible(false);
           setIsSwipeDownVisible(true);
           setTouchpadSwipeStage(1);
-        } else if (touchpadSwipeStage === 1 && !isCommunityVisible) {
+          wheelAccumulator.current = 0;
+        } else if (touchpadSwipeStage === 1 && !isCommunityVisible && Math.abs(wheelAccumulator.current) > 100) {
           setIsLeftSwipeVisible(false);
           setTouchpadSwipeStage(0);
+          wheelAccumulator.current = 0;
         }
       }
     } else if (inputType === 'touch') {
-      // Keep original touch logic
-      if (isAtBottom && delta > 0 && !isLeftSwipeVisible) {
+      // Keep original touch logic but with stricter thresholds
+      if (isAtBottom && delta > 30 && !isLeftSwipeVisible) { // Increased threshold
         setIsLeftSwipeVisible(true);
-      } else if (isLeftSwipeVisible && delta < 0 && !isCommunityVisible) {
+      } else if (isLeftSwipeVisible && delta < -30 && !isCommunityVisible) { // Increased threshold
         setIsLeftSwipeVisible(false);
       }
-      if (isLeftSwipeVisible && delta > 0) {
+      if (isLeftSwipeVisible && delta > 50) { // Increased threshold
         setIsCommunityVisible(true);
         setIsSwipeDownVisible(false);
-      } else if (isLeftSwipeVisible && delta < 0) {
+      } else if (isLeftSwipeVisible && delta < -50) { // Increased threshold
         setIsCommunityVisible(false);
         setIsSwipeDownVisible(true);
       }
     }
   }, [isAtBottom, isLeftSwipeVisible, touchpadSwipeStage, isCommunityVisible]);
-
   // Reset touchpad stage when not at bottom
   useEffect(() => {
     if (!isAtBottom && touchpadSwipeStage > 0) {
@@ -119,24 +129,20 @@ export default function Home() {
       const now = Date.now();
       if (now - lastScrollTime.current < 16) return; // Throttle to ~60fps
       lastScrollTime.current = now;
-
+    
       const currentScrollY = window.scrollY;
       const delta = currentScrollY - prevScrollY;
       
       setScrollY(currentScrollY);
       setDeltaY(delta);
       setPrevScrollY(currentScrollY);
-
+    
       checkIfAtBottom();
-
-      // Only process nav/swipe logic if not touch input
+    
+      // Only process nav visibility logic, not swipe logic
       if (inputType !== 'touch') {
         handleNavVisibility(delta);
-        
-        // Don't trigger swipe logic during normal scrolling
-        if (Math.abs(delta) < 50) { // Only for significant scroll movements
-          handleLeftSwipeVisibility(delta, inputType);
-        }
+        // Remove the handleLeftSwipeVisibility call from here entirely
       }
     };
 
@@ -216,31 +222,34 @@ export default function Home() {
       
       // Buffer wheel events to detect intentional swipes vs normal scrolling
       wheelBuffer.current.push(e.deltaY);
-      if (wheelBuffer.current.length > 5) {
+      if (wheelBuffer.current.length > 3) { // Reduced buffer size for more responsive detection
         wheelBuffer.current.shift();
       }
       
       // Accumulate wheel delta for gesture detection
-      if (timeDiff < 100) { // Events within 100ms are part of same gesture
+      if (timeDiff < 150) { // Slightly longer window for gesture detection
         wheelAccumulator.current += e.deltaY;
       } else {
-        wheelAccumulator.current = e.deltaY;
+        wheelAccumulator.current = e.deltaY; // Reset if too much time has passed
       }
       
-      // Only trigger swipe logic for significant accumulated movement
+      // Only trigger swipe logic for significant accumulated movement and when at bottom
       const avgDelta = wheelBuffer.current.reduce((sum, val) => sum + val, 0) / wheelBuffer.current.length;
+      const isSignificantGesture = Math.abs(wheelAccumulator.current) > 100 && Math.abs(avgDelta) > 30;
       
-      if (Math.abs(wheelAccumulator.current) > 100 && Math.abs(avgDelta) > 20) {
+      // Only process swipe gestures when at bottom or already in a swipe state
+      if (isSignificantGesture && (isAtBottom || touchpadSwipeStage > 0)) {
         handleLeftSwipeVisibility(wheelAccumulator.current, 'wheel');
-        wheelAccumulator.current = 0; // Reset accumulator after triggering
+        // Don't reset accumulator here - let the handleLeftSwipeVisibility function handle it
       }
       
-      // Clear accumulator after period of inactivity
+      // Clear accumulator after longer period of inactivity
       setTimeout(() => {
-        if (now - lastWheelTime.current > 200) {
+        if (now - lastWheelTime.current > 500) { // Increased timeout
           wheelAccumulator.current = 0;
+          wheelBuffer.current = [];
         }
-      }, 300);
+      }, 600);
     };
 
     const handleMouseMove = () => {
@@ -283,7 +292,7 @@ export default function Home() {
       <LiquidBackground />
 
       {/* Fixed display panel */}
-      <div className="hidden fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
+      <div className="fixed top-20 right-4 bg-black text-white p-4 rounded-lg shadow-lg z-50 font-mono text-sm min-w-[200px]">
         <div>Scroll Y: {scrollY}px</div>
         <div>Delta Y: {deltaY.toFixed(1)}px</div>
         <div className={`${deltaY > 0 ? 'text-red-400' : deltaY < 0 ? 'text-green-400' : 'text-gray-400'}`}>
@@ -548,6 +557,7 @@ export default function Home() {
               <div className={styles.MapGraphicTitle}>MAP</div>
               {/* <div className={styles.MapGraphic}><Image src="/graphics/map.png" alt="Map" width={1200} height={1200} objectFit="contain" /></div> */}
               {/* <Image src="/graphics/map.png" alt="Map" width={900} height={900} objectFit="contain" /> */}
+              {/* <Image src="/graphics/Inside Leaflet.svg" alt="Map" width={1200} height={1200} objectFit="contain" /> */}
               <div className={styles.RegisterText}>Register To Startup Village</div>
               <button 
                 className={styles.RegisterButtonWide} 
@@ -559,7 +569,7 @@ export default function Home() {
                   Register
                 </button>
             </div>
-          </div>
+          </div> 
         </div>
 
         <div className={styles.CommunityContainer}
@@ -570,114 +580,172 @@ export default function Home() {
           }}
         >
           <div className={styles.CommunityContent}>
-          <div className={styles.EventInfoContainer}>
-                <div className={styles.EventInfoTitle}>Did you know we have weekly events every friday in 7 cities?</div>
-                <div className={styles.EventInfoButtonContainer}>
-                  <div className={styles.EventInfoButtonText}>Find all our events on</div>
-                  <div className={styles.EventInfoButton}>Find them here</div>
-                </div>
-              </div>
-            <div className={styles.CommunityTitleContainer}>
-              <div className={styles.CommunityTitle}>What&apos;s Next? <b>Join Your Local Community on Telegram</b></div>
-            </div>
-            <div className={styles.LinksContainer}>
-              <div className={styles.SolanaLink}>
-                <button 
-                  className={styles.SolanaButton}
-                  onClick={() => window.open('https://t.me/+oznd043p-Fw4NDc0', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                  >
-                    Solana UK
-                  </button>
-              </div>
-              <div className={styles.SectorLinks}>
-                <div 
-                  className={styles.CreatorButton}
-                  onClick={() => window.open('https://t.me/+-EtHEi2L1LYyYzdk', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >
-                  CREATOR
-                </div>
-                <div className={styles.CreatorButton}
-                  onClick={() => window.open('https://t.me/+ccdcCEXZy4EzZTRk', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >
-                  ENGINEER
-                </div>
-                <div className={styles.CreatorButton}
-                  onClick={() => window.open('https://t.me/+Pxxr0XHZjBJiMTg0', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >
-                  BUSINESS
-                </div>
-              </div>
-              <div className={styles.LocationLinks}>
-                <div 
-                className={styles.ManButton} 
-                data-full="MANCHESTER" 
-                onClick={() => window.open('https://t.me/+jr1ZlPz7ePI5ZDlk', '_blank')}
+        <div className={styles.EventInfoContainer}>
+          <div className={styles.EventInfoTitle}>Did you know we have weekly events every friday in 7 cities?</div>
+          <div className={styles.EventInfoButtonContainer}>
+            <div className={styles.EventInfoButtonText}>Find all our events on</div>
+            <div className={styles.EventInfoButton}>Find them here</div>
+          </div>
+        </div>
+        
+        <div className={styles.MainContentContainer}>
+          <div className={styles.CommunityTitleContainer}>
+            <div className={styles.CommunityTitle}>What&apos;s Next? <b>Join Your Local Community on Telegram</b></div>
+          </div>
+          
+          <div className={styles.LinksContainer}>
+            <div className={styles.SolanaLink}>
+              <button 
+                className={styles.SolanaButton}
+                onClick={() => window.open('https://t.me/+oznd043p-Fw4NDc0', '_blank')}
                 onTouchStart={(e) => e.stopPropagation()}
                 onTouchEnd={(e) => e.stopPropagation()}
                 style={{ touchAction: 'manipulation' }}
-                >
-                  MAN
+              >
+                Solana UK
+              </button>
+            </div>
+            
+            <div className={styles.SectorLinks}>
+              <div 
+                className={`${styles.SectorButton} ${sectorExpanded ? styles.expanded : ''}`}
+                onClick={() => setSectorExpanded(!sectorExpanded)}
+                onMouseEnter={() => setSectorExpanded(true)}
+                onMouseLeave={() => setSectorExpanded(false)}
+              >
+                <div className={styles.SectorButtonMain}>SECTORS</div>
+                <div className={`${styles.SectorButtonsContainer} ${sectorExpanded ? styles.visible : ''}`}>
+                  <div 
+                    className={styles.CreatorButton}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+-EtHEi2L1LYyYzdk', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    CREATOR
+                  </div>
+                  <div className={styles.CreatorButton}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+ccdcCEXZy4EzZTRk', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    ENGINEER
+                  </div>
+                  <div className={styles.CreatorButton}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+Pxxr0XHZjBJiMTg0', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    BUSINESS
+                  </div>
                 </div>
-                <div 
-                  className={styles.GlasButton} 
-                  data-full="GLASGOW"
-                  onClick={() => window.open('https://t.me/STUK_COW_GLA', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >
-                  GLA
-                </div>
-                <div 
-                  className={styles.BirButton} 
-                  data-full="BIRMINGHAM"
-                  onClick={() => window.open('https://t.me/+5Ew0ehETXAA0ZDRk', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >
-                  BIR
-                </div>
-                <div 
-                  className={styles.NewButton} 
-                  data-full="NEWCASTLE"
-                  onClick={() => window.open('https://t.me/+znstcLhWIYJjM2I0', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >NEW</div>
-                <div 
-                  className={styles.ExeButton} 
-                  data-full="EXETER"
-                  onClick={() => window.open('https://t.me/+9i3c0XmADT9kZjFk', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >EXE</div>
-                <div 
-                  className={styles.BriButton} 
-                  data-full="BRIGHTON"
-                  onClick={() => window.open('https://t.me/+7nu6ZOw8VWExZGVk', '_blank')}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                  style={{ touchAction: 'manipulation' }}
-                >BRI</div>
               </div>
-              
+            </div>
+            
+            <div className={styles.LocationLinks}>
+              <div 
+                className={`${styles.LocationContainer} ${locationExpanded ? styles.expanded : ''}`}
+                onClick={() => setLocationExpanded(!locationExpanded)}
+                onMouseEnter={() => setLocationExpanded(true)}
+                onMouseLeave={() => setLocationExpanded(false)}
+              >
+                <div className={styles.LocationButtonMain}>LOCATIONS</div>
+                <div className={`${styles.LocationButtonsContainer} ${locationExpanded ? styles.visible : ''}`}>
+                  <div 
+                    className={styles.ManButton} 
+                    data-full="MANCHESTER" 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+jr1ZlPz7ePI5ZDlk', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    MAN
+                  </div>
+                  <div 
+                    className={styles.GlasButton} 
+                    data-full="GLASGOW"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/STUK_COW_GLA', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    GLA
+                  </div>
+                  <div 
+                    className={styles.BirButton} 
+                    data-full="BIRMINGHAM"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+5Ew0ehETXAA0ZDRk', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    BIR
+                  </div>
+                  <div 
+                    className={styles.NewButton} 
+                    data-full="NEWCASTLE"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+znstcLhWIYJjM2I0', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    NEW
+                  </div>
+                  <div 
+                    className={styles.ExeButton} 
+                    data-full="EXETER"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+9i3c0XmADT9kZjFk', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    EXE
+                  </div>
+                  <div 
+                    className={styles.BriButton} 
+                    data-full="BRIGHTON"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://t.me/+7nu6ZOw8VWExZGVk', '_blank');
+                    }}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    style={{ touchAction: 'manipulation' }}
+                  >
+                    BRI
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </main>
