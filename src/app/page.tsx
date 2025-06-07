@@ -40,7 +40,44 @@ export default function Home() {
 
   const Carousel = () => {
     const totalSlides = 9;
-    const [currentSlide, setCurrentSlide] = useState(totalSlides);
+    const [currentSlide, setCurrentSlide] = useState(1);
+    const [availableSlides, setAvailableSlides] = useState(1);
+
+    const TIME_UNIT = 'minutes'; //Change to hours for production
+    const START_DATE = new Date() //right now
+    // const START_DATE = new Date('2025-05-07')
+
+    const calculateAvailableSlides = () => {
+      const now = new Date();
+      const timeDiff = now - START_DATE;
+
+      let timeUnitsElapsed;
+      if (TIME_UNIT === 'days') {
+        timeUnitsElapsed = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1
+      } else if (TIME_UNIT === 'minutes') {
+        timeUnitsElapsed = Math.floor(timeDiff / (1000 * 60)) + 1
+      }
+
+      return Math.min(Math.max(timeUnitsElapsed, 1), totalSlides);
+    };
+
+    useEffect(() => {
+      const updateAvailableSlides = () => {
+        const available = calculateAvailableSlides();
+        setAvailableSlides(available);
+
+        setCurrentSlide(available);
+      };
+
+      updateAvailableSlides();
+
+      const interval = setInterval(updateAvailableSlides,
+        TIME_UNIT === 'minutes' ? 60000 :
+        86400000
+      );
+
+      return () => clearInterval(interval);
+    }, []);
 
     const handleNext = () => {
       if (currentSlide < totalSlides) {
@@ -60,14 +97,19 @@ export default function Home() {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((slideNumber) => (
             <div 
               key={slideNumber}
-              className={styles.GraphicItem}
+              className={`${styles.GraphicItem} ${slideNumber > availableSlides ? styles.locked : ''}`}
               style={{
                 transform: slideNumber === currentSlide ? 'translateX(0%)' : 
                           slideNumber > currentSlide ? 'translateX(0%)' : 'translateX(100%)',
-                zIndex: totalSlides - slideNumber + 1
+                zIndex: totalSlides - slideNumber + 1,
+                opacity: slideNumber > availableSlides ? 0.5 : 1,
+                pointerEvents: slideNumber > availableSlides ? 'none' : 'auto'
               }}
             >
-              <h1>{slideNumber}</h1>
+              <h1>{slideNumber > availableSlides ? `🔒 ${slideNumber}` : slideNumber}</h1>
+              {slideNumber > availableSlides && (
+                <p>Available in {slideNumber - availableSlides} {TIME_UNIT === 'minutes' ? 'minutes' : 'hours'}</p>
+              )}
             </div>
           ))}
         </div>
