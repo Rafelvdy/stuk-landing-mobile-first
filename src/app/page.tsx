@@ -593,7 +593,7 @@ export default function Home() {
             <div className={styles.CommunityTitle}>What&apos;s Next? <b>Join Your Local Community on Telegram</b></div>
           </div>
           
-          
+          <div className={styles.LinksContainer}>
             <div className={styles.SolanaLink}>
               <button 
                 className={styles.SolanaButton}
@@ -605,141 +605,142 @@ export default function Home() {
                 Solana UK
               </button>
             </div>
-          <div className={styles.LinksContainer}>
-            
-            <div className={styles.SectorLinks}>
-              <div 
-                className={`${styles.SectorButton} ${sectorExpanded ? styles.expanded : ''}`}
-                onClick={() => setSectorExpanded(!sectorExpanded)}
-                onMouseEnter={() => setSectorExpanded(true)}
-                onMouseLeave={() => setSectorExpanded(false)}
-              >
-                <div className={styles.SectorButtonMain}>SECTORS</div>
-                <div className={`${styles.SectorButtonsContainer} ${sectorExpanded ? styles.visible : ''}`}>
-                  <div 
-                    className={styles.CreatorButton}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+-EtHEi2L1LYyYzdk', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    CREATOR
-                  </div>
-                  <div className={styles.CreatorButton}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+ccdcCEXZy4EzZTRk', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    ENGINEER
-                  </div>
-                  <div className={styles.CreatorButton}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+Pxxr0XHZjBJiMTg0', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    BUSINESS
+          
+            <div className={styles.ExpandableButtonsRow}>
+              <div className={styles.SectorLinks}>
+                <div 
+                  className={`${styles.SectorButton} ${sectorExpanded ? styles.expanded : ''}`}
+                  onClick={() => setSectorExpanded(!sectorExpanded)}
+                  onMouseEnter={() => setSectorExpanded(true)}
+                  onMouseLeave={() => setSectorExpanded(false)}
+                >
+                  <div className={styles.SectorButtonMain}>SECTORS</div>
+                  <div className={`${styles.SectorButtonsContainer} ${sectorExpanded ? styles.visible : ''}`}>
+                    <div 
+                      className={styles.CreatorButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+-EtHEi2L1LYyYzdk', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      CREATOR
+                    </div>
+                    <div className={styles.CreatorButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+ccdcCEXZy4EzZTRk', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      ENGINEER
+                    </div>
+                    <div className={styles.CreatorButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+Pxxr0XHZjBJiMTg0', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      BUSINESS
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            
-            <div className={styles.LocationLinks}>
-              <div 
-                className={`${styles.LocationContainer} ${locationExpanded ? styles.expanded : ''}`}
-                onClick={() => setLocationExpanded(!locationExpanded)}
-                onMouseEnter={() => setLocationExpanded(true)}
-                onMouseLeave={() => setLocationExpanded(false)}
-              >
-                <div className={styles.LocationButtonMain}>LOCATIONS</div>
-                <div className={`${styles.LocationButtonsContainer} ${locationExpanded ? styles.visible : ''}`}>
-                  <div 
-                    className={styles.ManButton} 
-                    data-full="MANCHESTER" 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+jr1ZlPz7ePI5ZDlk', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    MAN
-                  </div>
-                  <div 
-                    className={styles.GlasButton} 
-                    data-full="GLASGOW"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/STUK_COW_GLA', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    GLA
-                  </div>
-                  <div 
-                    className={styles.BirButton} 
-                    data-full="BIRMINGHAM"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+5Ew0ehETXAA0ZDRk', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    BIR
-                  </div>
-                  <div 
-                    className={styles.NewButton} 
-                    data-full="NEWCASTLE"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+znstcLhWIYJjM2I0', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    NEW
-                  </div>
-                  <div 
-                    className={styles.ExeButton} 
-                    data-full="EXETER"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+9i3c0XmADT9kZjFk', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    EXE
-                  </div>
-                  <div 
-                    className={styles.BriButton} 
-                    data-full="BRIGHTON"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open('https://t.me/+7nu6ZOw8VWExZGVk', '_blank');
-                    }}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    style={{ touchAction: 'manipulation' }}
-                  >
-                    BRI
+              
+              <div className={styles.LocationLinks}>
+                <div 
+                  className={`${styles.LocationContainer} ${locationExpanded ? styles.expanded : ''}`}
+                  onClick={() => setLocationExpanded(!locationExpanded)}
+                  onMouseEnter={() => setLocationExpanded(true)}
+                  onMouseLeave={() => setLocationExpanded(false)}
+                >
+                  <div className={styles.LocationButtonMain}>LOCATIONS</div>
+                  <div className={`${styles.LocationButtonsContainer} ${locationExpanded ? styles.visible : ''}`}>
+                    <div 
+                      className={styles.ManButton} 
+                      data-full="MANCHESTER" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+jr1ZlPz7ePI5ZDlk', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      MAN
+                    </div>
+                    <div 
+                      className={styles.GlasButton} 
+                      data-full="GLASGOW"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/STUK_COW_GLA', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      GLA
+                    </div>
+                    <div 
+                      className={styles.BirButton} 
+                      data-full="BIRMINGHAM"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+5Ew0ehETXAA0ZDRk', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      BIR
+                    </div>
+                    <div 
+                      className={styles.NewButton} 
+                      data-full="NEWCASTLE"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+znstcLhWIYJjM2I0', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      NEW
+                    </div>
+                    <div 
+                      className={styles.ExeButton} 
+                      data-full="EXETER"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+9i3c0XmADT9kZjFk', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      EXE
+                    </div>
+                    <div 
+                      className={styles.BriButton} 
+                      data-full="BRIGHTON"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open('https://t.me/+7nu6ZOw8VWExZGVk', '_blank');
+                      }}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      style={{ touchAction: 'manipulation' }}
+                    >
+                      BRI
+                    </div>
                   </div>
                 </div>
               </div>
