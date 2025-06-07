@@ -26,6 +26,7 @@ export default function Home() {
 
   const [sectorExpanded, setSectorExpanded] = useState(false);
   const [locationExpanded, setLocationExpanded] = useState(false);
+  const [isTouching, setIsTouching] = useState(false);
   
   // Add touchpad-specific state
   const [touchpadSwipeStage, setTouchpadSwipeStage] = useState(0); // 0: normal, 1: map, 2: community
@@ -566,7 +567,7 @@ export default function Home() {
                   
                   {activeToDoItem === 2 && (
                     <div className={styles.ExpandedToDoItem}>
-                      <p>A 24hr hackathon, focused on shipping mobile apps fast. Go from idea to app in minutes, not days.  All building toward the Seeker launch this August</p>
+                      <p>A 24hr hackathon, focused on shipping mobile apps fast. Go from idea to app in minutes, not days.  All building toward the Seeker launch this August</p>
                     </div>
                   )}
                 </div>
@@ -680,8 +681,18 @@ export default function Home() {
               <div 
                 className={`${styles.SectorButton} ${sectorExpanded ? styles.expanded : ''}`}
                 onClick={() => setSectorExpanded(!sectorExpanded)}
-                onMouseEnter={() => setSectorExpanded(true)}
-                onMouseLeave={() => setSectorExpanded(false)}
+                onMouseEnter={() => !isTouching && setSectorExpanded(true) || setLocationExpanded(false)}
+                onMouseLeave={() => !isTouching && setSectorExpanded(false)}
+                onTouchStart={(e) => {
+                  e.stopPropagation();
+                  setIsTouching(true);
+                }}
+                onTouchEnd={(e) => {
+                  e.stopPropagation();
+                  // Keep menu open after touch
+                  setTimeout(() => setIsTouching(false), 300);
+                }}
+                style={{ touchAction: 'manipulation' }}
               >
                 <div className={styles.SectorButtonMain}>SECTORS</div>
                 <div className={`${styles.SectorButtonsContainer} ${sectorExpanded ? styles.visible : ''}`}>
@@ -727,8 +738,18 @@ export default function Home() {
               <div 
                 className={`${styles.LocationContainer} ${locationExpanded ? styles.expanded : ''}`}
                 onClick={() => setLocationExpanded(!locationExpanded)}
-                onMouseEnter={() => setLocationExpanded(true)}
-                onMouseLeave={() => setLocationExpanded(false)}
+                onMouseEnter={() => !isTouching && setLocationExpanded(true) || setSectorExpanded(false)}
+                onMouseLeave={() => !isTouching && setLocationExpanded(false)}
+                onTouchStart={(e) => {
+                  e.stopPropagation();
+                  setIsTouching(true);
+                }}
+                onTouchEnd={(e) => {
+                  e.stopPropagation();
+                  // Keep menu open after touch
+                  setTimeout(() => setIsTouching(false), 300);
+                }}
+                style={{ touchAction: 'manipulation' }}
               >
                 <div className={styles.LocationButtonMain}>LOCATIONS</div>
                 <div className={`${styles.LocationButtonsContainer} ${locationExpanded ? styles.visible : ''}`}>
