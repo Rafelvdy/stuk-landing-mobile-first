@@ -626,7 +626,7 @@ export default function Home() {
               {/* <div className={styles.MapGraphic}><Image src="/graphics/map.png" alt="Map" width={1200} height={1200} objectFit="contain" /></div> */}
               {/* <Image src="/graphics/map.png" alt="Map" width={900} height={900} objectFit="contain" /> */}
               {/* <Image src="/graphics/Inside Leaflet.svg" alt="Map" width={1200} height={1200} objectFit="contain" /> */}
-              <Image src="/graphics/Inside Lealflet-min.png" alt="Map" width={800} height={800} objectFit="contain" />
+              <Image src="/graphics/Inside Lealflet-min.png" alt="Map" width={900} height={900} objectFit="contain" className={styles.MapGraphic}/>
               <div className={styles.RegisterText}>Register To Startup Village</div>
               <button 
                 className={styles.RegisterButtonWide} 

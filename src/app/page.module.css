@@ -1499,14 +1499,10 @@
     backdrop-filter: blur(10px);
 }
 
+
+
 .MapGraphic {
-    /* background: grey; */
-    aspect-ratio: 16/9;
-    height: auto;
-    width: 80%;
-    max-width: 1000px;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    
 }
 
 .MapGraphicTitle {
@@ -1563,18 +1559,11 @@
         font-size: clamp(14px, 5vw, 40px);
     }
 
-    .MapGraphic {
-        margin-top: 0px;
-    }
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
     .MapGraphicTitle {
         font-size: clamp(14px, 5vw, 45px);
-    }
-
-    .MapGraphic {
-        margin-top: 0px;
     }
 
     .MapContainer {
@@ -1595,9 +1584,6 @@
         margin-top: clamp(10px, 3vh, 15px);
     }
 
-    .MapGraphic {
-        margin-top: 20px;
-    }
 
     .RegisterText {
         font-size: clamp(14px, 5vw, 40px);
@@ -1605,10 +1591,7 @@
 }
 
 @media (min-width: 1080px) {
-    .MapGraphic {
-        margin-bottom: 0px;
-        width: clamp(100px, 70%, 850px);
-    }
+  
 }
 
 .SwipeDownContainer {
