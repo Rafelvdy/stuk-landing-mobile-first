@@ -418,8 +418,24 @@ export default function Home() {
           <div className={styles.NavLinks}>
             <a href="#about"><p>About</p></a>
             <a href="#activities"><p>Activities</p></a>
-            <a href="#themes"><p>Themes</p></a>
-            <p>Community</p>
+            <a href="#themes"
+              onClick={() => {
+                setIsLeftSwipeVisible(false);
+                setIsCommunityVisible(false);
+              }}
+            ><p>Themes</p></a>
+            <a href="#themes"
+              onClick={() => {
+                setIsLeftSwipeVisible(true);
+                setIsCommunityVisible(false);
+              }}
+            ><p>Map</p></a>
+            <a href="#community"
+              onClick={() => {
+                setIsCommunityVisible(true);
+                setIsLeftSwipeVisible(false);
+              }}
+            ><p>Community</p></a>
           </div>
         </div>
         <div className={styles.NavBarRight}>
@@ -437,10 +453,39 @@ export default function Home() {
           </div>
           <div className={`${styles.MobileMenuDropdown} ${isMenuOpen ? styles.open : ''}`}>
             <div className={styles.MobileMenuLinks}>
-              <a href="#about"><p>About</p></a>
-              <a href="#activities"><p>Activities</p></a>
-              <a href="#themes"><p>Themes</p></a>
-              <p>Community</p>
+              <a href="#about"
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}           
+              ><p>About</p>
+              </a>
+              <a href="#activities"
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              ><p>Activities</p></a>
+              <a href="#themes"
+                onClick={() => {
+                  setIsLeftSwipeVisible(false);
+                  setIsCommunityVisible(false);
+                }}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              ><p>Themes</p></a>
+              <a href="#themes"
+                onClick={() => {
+                  setIsLeftSwipeVisible(true);
+                  setIsCommunityVisible(false);
+                }}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              ><p>Map</p></a>
+              <a href="#community"
+                onClick={() => {
+                  setIsCommunityVisible(true);
+                  setIsLeftSwipeVisible(false);
+                }}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              ><p>Community</p></a>
             </div>
             <a href="https://lu.ma/LondonStartupVillage" target="_blank" rel="noopener noreferrer"><button className={styles.MobileMenuButton}>Register</button></a>
           </div>
@@ -681,7 +726,7 @@ export default function Home() {
           </div> 
         </div>
 
-        <div className={styles.CommunityContainer}
+        <div className={styles.CommunityContainer} id="community"
           style={{
             width: isCommunityVisible ? '100%' : '0%',
             height: isCommunityVisible ? '100vh' : '0vh',
