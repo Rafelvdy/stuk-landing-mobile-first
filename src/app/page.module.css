@@ -1548,6 +1548,17 @@
     height: 100%;
 }
 
+@media (max-height: 862px) {
+    .RegisterText {
+        font-size: clamp(14px, 5vw, 20px) !important;
+    }
+
+    .MapGraphic {
+        width: 70%;
+        height: auto;
+    }
+}
+
 @media (min-width: 768px) {
     .MapContent {
         margin-bottom: 50px;
