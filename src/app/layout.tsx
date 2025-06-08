@@ -30,6 +30,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: 'no',
+  height: 'device-height',
 }
 
 export default function RootLayout({
