@@ -24,19 +24,15 @@ export default function Home() {
   const [isCommunityVisible, setIsCommunityVisible] = useState(false);
   const [isSwipeDownVisible, setIsSwipeDownVisible] = useState(true);
 
+  const [isAnimating, setIsAnimating] = useState(false);
+  const lastScrollTime = useRef(0);
+
   const [sectorExpanded, setSectorExpanded] = useState(false);
   const [locationExpanded, setLocationExpanded] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
   
-  // Add touchpad-specific state
-  const [touchpadSwipeStage, setTouchpadSwipeStage] = useState(0); // 0: normal, 1: map, 2: community
-  const wheelBuffer = useRef<number[]>([]);
-  const lastWheelTime = useRef(0);
-  const wheelAccumulator = useRef(0);
-  
   // Add throttling refs
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
-  const lastScrollTime = useRef(0);
 
   const Carousel = () => {
     const totalSlides = 10;
@@ -154,68 +150,28 @@ export default function Home() {
   const handleLeftSwipeVisibility = useCallback((delta: number, inputType: string) => {
     if (Math.abs(delta) < 10) return;
   
-    // Different logic for wheel vs touch
-    if (inputType === 'wheel') {
-      // For touchpad/wheel, use staged approach with stricter conditions
-      if (isAtBottom && delta > 0) {
-        if (touchpadSwipeStage === 0 && Math.abs(wheelAccumulator.current) > 150) { // Increased threshold
-          setIsLeftSwipeVisible(true);
-          setTouchpadSwipeStage(1);
-          setDeltaY(0);
-          wheelAccumulator.current = 0; // Reset immediately
-          return;
-        } else if (touchpadSwipeStage === 1 && Math.abs(wheelAccumulator.current) > 200 && isLeftSwipeVisible) { // Much higher threshold for community
-          setIsCommunityVisible(true);
-          setIsSwipeDownVisible(false);
-          setTouchpadSwipeStage(2);
-          setDeltaY(0); 
-          wheelAccumulator.current = 0; // Reset immediately
-          return;
-        }
-      } else if (delta < 0) { // Changed from delta < 1 to delta < 0 for stricter upward detection
-        if (touchpadSwipeStage === 2 && isCommunityVisible && Math.abs(wheelAccumulator.current) > 100) {
-          setIsCommunityVisible(false);
-          setIsSwipeDownVisible(true);
-          setTouchpadSwipeStage(1);
-          wheelAccumulator.current = 0;
-        } else if (touchpadSwipeStage === 1 && !isCommunityVisible && Math.abs(wheelAccumulator.current) > 100) {
-          setIsLeftSwipeVisible(false);
-          setTouchpadSwipeStage(0);
-          wheelAccumulator.current = 0;
-        }
-      }
-    } else if (inputType === 'touch') {
-      // Keep original touch logic but with stricter thresholds
-      if (isAtBottom && delta > 30 && !isLeftSwipeVisible) { // Increased threshold
+    // Touch logic (keep unchanged as it works perfectly)
+    if (inputType === 'touch') {
+      if (isAtBottom && delta > 30 && !isLeftSwipeVisible) {
         setIsLeftSwipeVisible(true);
-      } else if (isLeftSwipeVisible && delta < -30 && !isCommunityVisible) { // Increased threshold
+      } else if (isLeftSwipeVisible && delta < -30 && !isCommunityVisible) {
         setIsLeftSwipeVisible(false);
       }
-      if (isLeftSwipeVisible && delta > 50) { // Increased threshold
+      if (isLeftSwipeVisible && delta > 50) {
         setIsCommunityVisible(true);
         setIsSwipeDownVisible(false);
-      } else if (isLeftSwipeVisible && delta < -50) { // Increased threshold
+      } else if (isLeftSwipeVisible && delta < -50) {
         setIsCommunityVisible(false);
         setIsSwipeDownVisible(true);
       }
     }
-  }, [isAtBottom, isLeftSwipeVisible, touchpadSwipeStage, isCommunityVisible]);
-  // Reset touchpad stage when not at bottom
-  useEffect(() => {
-    if (!isAtBottom && touchpadSwipeStage > 0) {
-      setTouchpadSwipeStage(0);
-      setIsLeftSwipeVisible(false);
-      setIsCommunityVisible(false);
-      setIsSwipeDownVisible(true);
-    }
-  }, [isAtBottom, touchpadSwipeStage]);
+  }, [isAtBottom, isLeftSwipeVisible, isCommunityVisible]);
 
   useEffect(() => {
     if (!isNavVisible && isMenuOpen) {
       setIsMenuOpen(false);
     }
 
-    // Improved scroll handler with better touchpad detection
     const handleScroll = () => {
       const now = Date.now();
       if (now - lastScrollTime.current < 16) return; // Throttle to ~60fps
@@ -233,7 +189,6 @@ export default function Home() {
       // Only process nav visibility logic, not swipe logic
       if (inputType !== 'touch') {
         handleNavVisibility(delta);
-        // Remove the handleLeftSwipeVisibility call from here entirely
       }
     };
 
@@ -302,45 +257,43 @@ export default function Home() {
       }
     };
 
-    // Improved wheel handler with better touchpad gesture detection
+    // Simplified wheel handler for both scroll wheel and trackpad
     const handleWheel = (e: WheelEvent) => {
       const now = Date.now();
-      const timeDiff = now - lastWheelTime.current;
-      lastWheelTime.current = now;
-      
       setDeltaY(e.deltaY);
       setInputType('wheel');
       
-      // Buffer wheel events to detect intentional swipes vs normal scrolling
-      wheelBuffer.current.push(e.deltaY);
-      if (wheelBuffer.current.length > 3) { // Reduced buffer size for more responsive detection
-        wheelBuffer.current.shift();
-      }
-      
-      // Accumulate wheel delta for gesture detection
-      if (timeDiff < 150) { // Slightly longer window for gesture detection
-        wheelAccumulator.current += e.deltaY;
-      } else {
-        wheelAccumulator.current = e.deltaY; // Reset if too much time has passed
-      }
-      
-      // Only trigger swipe logic for significant accumulated movement and when at bottom
-      const avgDelta = wheelBuffer.current.reduce((sum, val) => sum + val, 0) / wheelBuffer.current.length;
-      const isSignificantGesture = Math.abs(wheelAccumulator.current) > 100 && Math.abs(avgDelta) > 30;
-      
-      // Only process swipe gestures when at bottom or already in a swipe state
-      if (isSignificantGesture && (isAtBottom || touchpadSwipeStage > 0)) {
-        handleLeftSwipeVisibility(wheelAccumulator.current, 'wheel');
-        // Don't reset accumulator here - let the handleLeftSwipeVisibility function handle it
-      }
-      
-      // Clear accumulator after longer period of inactivity
-      setTimeout(() => {
-        if (now - lastWheelTime.current > 500) { // Increased timeout
-          wheelAccumulator.current = 0;
-          wheelBuffer.current = [];
+      // Only handle navigation when at bottom with sufficient time gap
+      if (isAtBottom && !isAnimating && now - lastScrollTime.current > 400) {
+        
+        // Single threshold for both scroll wheel and trackpad
+        if (Math.abs(e.deltaY) > 30) {
+          lastScrollTime.current = now;
+          setIsAnimating(true);
+          
+          if (e.deltaY > 0) { // Scrolling down
+            if (!isLeftSwipeVisible) {
+              // Go to map
+              setIsLeftSwipeVisible(true);
+            } else if (!isCommunityVisible) {
+              // Go to community
+              setIsCommunityVisible(true);
+              setIsSwipeDownVisible(false);
+            }
+          } else { // Scrolling up
+            if (isCommunityVisible) {
+              // Back to map
+              setIsCommunityVisible(false);
+              setIsSwipeDownVisible(true);
+            } else if (isLeftSwipeVisible) {
+              // Back to themes
+              setIsLeftSwipeVisible(false);
+            }
+          }
+          
+          setTimeout(() => setIsAnimating(false), 350);
         }
-      }, 600);
+      }
     };
 
     const handleMouseMove = () => {
@@ -375,7 +328,7 @@ export default function Home() {
         clearTimeout(scrollTimeout.current);
       }
     };
-  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility, isCommunityVisible, isSwipeDownVisible, touchpadSwipeStage]);
+  }, [prevScrollY, inputType, isAtBottom, isLeftSwipeVisible, isMenuOpen, isNavVisible, checkIfAtBottom, handleNavVisibility, handleLeftSwipeVisibility, isCommunityVisible, isSwipeDownVisible, isAnimating]);
 
   return (
     <main>
