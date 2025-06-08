@@ -1517,13 +1517,17 @@
 
 @media (min-width: 768px) and (max-width: 1440px) {
     .MapGraphicWrapper {
-        height: 50vh;
+        height: 60vh;
+    }
+
+    .RegisterText {
+        font-size: clamp(14px, 5vw, 20px) !important;
     }
 }
 
 @media (min-height: 600px) and (max-height: 800px) {
     .MapGraphicWrapper {
-        height: 40vh;
+        height: 50vh;
     }
 }
 
