@@ -109,6 +109,7 @@ export default function Home() {
         <button 
             className={styles.GraphicNext}
             onClick={handleNext}
+            style={{opacity: isLeftSwipeVisible ? '0' : '1', transition: 'opacity 1s ease-in-out'}}
             disabled={currentSlide >= totalSlides || availableSlides <= 1 || currentSlide === availableSlides}
           >
             {'>'}
@@ -154,6 +155,10 @@ export default function Home() {
     if (inputType === 'touch') {
       if (isAtBottom && delta > 30 && !isLeftSwipeVisible) {
         setIsLeftSwipeVisible(true);
+        const nextButton = document.querySelector(`.${styles.GraphicNext}`) as HTMLElement;
+        if (nextButton) {
+          nextButton.style.visibility = 'hidden';
+        }
       } else if (isLeftSwipeVisible && delta < -30 && !isCommunityVisible) {
         setIsLeftSwipeVisible(false);
       }
