@@ -262,6 +262,10 @@ export default function Home() {
       const now = Date.now();
       setDeltaY(e.deltaY);
       setInputType('wheel');
+
+      if (isLeftSwipeVisible || isCommunityVisible) {
+        e.preventDefault();
+      }
       
       // Only handle navigation when at bottom with sufficient time gap
       if (isAtBottom && !isAnimating && now - lastScrollTime.current > 400) {
@@ -307,7 +311,7 @@ export default function Home() {
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd, { passive: false });
-    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     // Initial check
