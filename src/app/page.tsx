@@ -667,10 +667,18 @@ export default function Home() {
           >
             <div className={styles.MapContent}>
               <div className={styles.MapGraphicTitle}>MAP</div>
-              {/* <div className={styles.MapGraphic}><Image src="/graphics/map.png" alt="Map" width={1200} height={1200} objectFit="contain" /></div> */}
-              {/* <Image src="/graphics/map.png" alt="Map" width={900} height={900} objectFit="contain" /> */}
-              {/* <Image src="/graphics/Inside Leaflet.svg" alt="Map" width={1200} height={1200} objectFit="contain" /> */}
-              <div className={styles.MapGraphicWrapper}>
+              <div 
+                className={styles.MapGraphicWrapper}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = ((e.clientX - rect.left) / rect.width) * 100;
+                  const y = ((e.clientY - rect.top) / rect.height) * 100;
+                  e.currentTarget.style.setProperty('--x', `${x}%`);
+                  e.currentTarget.style.setProperty('--y', `${y}%`);
+                }}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              >
                 <Image src="/graphics/Inside Lealflet-min.png" alt="Map" fill objectFit="contain" className={styles.MapGraphic}/>
               </div>
               <div className={styles.RegisterText}>Register To Startup Village</div>

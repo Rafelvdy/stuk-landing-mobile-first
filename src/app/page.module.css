@@ -1504,7 +1504,8 @@
 
 
 .MapGraphic {
-    
+    transition: transform 0.2s ease-out;
+    will-change: transform;
 }
 
 .MapGraphicWrapper {
@@ -1513,7 +1514,23 @@
     max-width: 900px;
     height: 60vh;
     max-height: 900px;
+    overflow: hidden;
+    border-radius: 8px;
 }
+
+/* Only apply zoom effect on devices with mouse hover capability */
+@media (hover: hover) {
+    .MapGraphicWrapper {
+        cursor: zoom-in;
+    }
+    
+    .MapGraphicWrapper:hover .MapGraphic {
+        transform: scale(2);
+        transform-origin: var(--x) var(--y);
+    }
+}
+
+/* Remove touch-specific zoom styles */
 
 @media (min-width: 768px) and (max-width: 1440px) {
     .MapGraphicWrapper {
